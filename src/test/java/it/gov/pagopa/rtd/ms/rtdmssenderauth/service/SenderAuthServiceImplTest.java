@@ -62,14 +62,25 @@ class SenderAuthServiceImplTest {
   }
 
   @Test
-  void saveSenderCodeAndApiKey() {
-    BDDMockito.doReturn(Optional.of(defaultSenderData)).when(senderAuthRepository)
+  void whenApiKeyIsNotSavedThenSaveTheNewAssociationWithSenderCode() {
+    BDDMockito.doReturn(Optional.empty()).when(senderAuthRepository)
         .findByApiKey("12345");
 
     senderAuthService.saveApiKey("senderCode", "12345");
 
     Mockito.verify(senderAuthRepository, Mockito.times(1)).deleteBySenderCode("senderCode");
     Mockito.verify(senderAuthRepository, Mockito.times(1)).save(defaultSenderData);
+  }
+
+  @Test
+  void whenTheApiKeyIsAlreadyAssociatedToTheSameSenderCodeThenDoNothing() {
+    BDDMockito.doReturn(Optional.of(defaultSenderData)).when(senderAuthRepository)
+        .findByApiKey("12345");
+
+    senderAuthService.saveApiKey("senderCode", "12345");
+
+    Mockito.verify(senderAuthRepository, Mockito.times(0)).deleteBySenderCode("senderCode");
+    Mockito.verify(senderAuthRepository, Mockito.times(0)).save(defaultSenderData);
   }
 
   private SenderData createSenderData() {

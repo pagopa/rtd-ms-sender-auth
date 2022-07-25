@@ -27,9 +27,14 @@ public class SenderAuthServiceImpl implements SenderAuthService {
   public void saveApiKey(String senderCode, String apiKey) {
     Optional<String> senderCodeOpt = senderAuthRepository.findByApiKey(apiKey)
         .map(SenderData::getSenderCode);
-    if (senderCodeOpt.isPresent() && !senderCodeOpt.get().equals(senderCode)) {
-      throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
-          String.format("api key %s is already associated to a different sender code", apiKey));
+    if (senderCodeOpt.isPresent()) {
+      if (isApiKeyAssociatedToAnotherSenderCode(senderCode, senderCodeOpt.get())) {
+        throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
+            String.format("api key %s is already associated to a different sender code", apiKey));
+      } else {
+        // senderCode-apiKey is already saved therefore do nothing
+        return;
+      }
     }
 
     senderAuthRepository.deleteBySenderCode(senderCode);
@@ -38,4 +43,7 @@ public class SenderAuthServiceImpl implements SenderAuthService {
     senderAuthRepository.save(senderDataToSave);
   }
 
+  private boolean isApiKeyAssociatedToAnotherSenderCode(String senderCodeSaved, String senderCodeNew) {
+    return !senderCodeSaved.equals(senderCodeNew);
+  }
 }
