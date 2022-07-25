@@ -1,9 +1,14 @@
 package it.gov.pagopa.rtd.ms.rtdmssenderauth.service;
 
+import it.gov.pagopa.rtd.ms.rtdmssenderauth.controller.DefaultRestController.RecordNotPresent;
+import it.gov.pagopa.rtd.ms.rtdmssenderauth.model.SenderData;
 import it.gov.pagopa.rtd.ms.rtdmssenderauth.repository.SenderAuthRepository;
+import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 @Service
 @Slf4j
@@ -11,5 +16,26 @@ import org.springframework.stereotype.Service;
 public class SenderAuthServiceImpl implements SenderAuthService {
 
   private final SenderAuthRepository senderAuthRepository;
+
+  @Override
+  public String getSenderCode(String apiKey) {
+    return senderAuthRepository.findByApiKey(apiKey).orElseThrow(RecordNotPresent::new)
+        .getSenderCode();
+  }
+
+  @Override
+  public void saveApiKey(String senderCode, String apiKey) {
+    Optional<String> senderCodeOpt = senderAuthRepository.findByApiKey(apiKey)
+        .map(SenderData::getSenderCode);
+    if (senderCodeOpt.isPresent() && !senderCodeOpt.get().equals(senderCode)) {
+      throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
+          String.format("api key %s is already associated to a different sender code", apiKey));
+    }
+
+    senderAuthRepository.deleteBySenderCode(senderCode);
+    SenderData senderDataToSave = SenderData.builder().senderCode(senderCode).apiKey(apiKey)
+        .build();
+    senderAuthRepository.save(senderDataToSave);
+  }
 
 }
