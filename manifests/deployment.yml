@@ -18,7 +18,7 @@ spec:
           ports:
             - containerPort: 8080
           imagePullPolicy: Always
-#          envFrom:
+          envFrom:
 #            - configMapRef:
 #                name: rtdmssenderauth
 #             - secretRef:
@@ -27,8 +27,8 @@ spec:
 #                 name: rtd-blob-storage-events
 #             - secretRef:
 #                 name: rtd-internal-api
-#            - secretRef:
-#                name: mongo-credentials
+            - secretRef:
+                name: mongo-credentials
           resources:
             limits:
               cpu: 500m
