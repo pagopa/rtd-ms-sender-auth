@@ -1,6 +1,6 @@
 package it.gov.pagopa.rtd.ms.rtdmssenderauth.service;
 
-import it.gov.pagopa.rtd.ms.rtdmssenderauth.controller.DefaultRestController.RecordNotPresent;
+import it.gov.pagopa.rtd.ms.rtdmssenderauth.controller.SenderRestController.RecordNotPresent;
 import it.gov.pagopa.rtd.ms.rtdmssenderauth.model.SenderData;
 import it.gov.pagopa.rtd.ms.rtdmssenderauth.repository.SenderAuthRepository;
 import java.util.Optional;

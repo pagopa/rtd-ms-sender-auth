@@ -5,7 +5,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import it.gov.pagopa.rtd.ms.rtdmssenderauth.controller.DefaultRestController.RecordNotPresent;
+import it.gov.pagopa.rtd.ms.rtdmssenderauth.controller.SenderRestController.RecordNotPresent;
 import it.gov.pagopa.rtd.ms.rtdmssenderauth.service.SenderAuthService;
 import lombok.SneakyThrows;
 import org.junit.jupiter.api.Test;
@@ -18,7 +18,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.web.server.ResponseStatusException;
 
-@WebMvcTest(RestControllerImpl.class)
+@WebMvcTest(SenderRestControllerImpl.class)
 class RestControllerTest {
 
   @Autowired
