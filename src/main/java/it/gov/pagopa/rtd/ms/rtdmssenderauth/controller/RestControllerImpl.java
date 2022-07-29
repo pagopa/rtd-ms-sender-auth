@@ -17,13 +17,13 @@ public class RestControllerImpl implements DefaultRestController {
 
   @Override
   public String getSenderCode(String apiKey) {
-    log.info("Getting SenderCode from apikey={}", apiKey);
+    log.info("Getting SenderCode from internal ID");
     return authService.getSenderCode(apiKey);
   }
 
   @Override
   public void saveApiKey(String senderCode, String apiKey) {
-    log.info("Saving senderCode:{} and apiKey:{}", senderCode, apiKey);
+    log.info("Saving internal ID for SenderCode {}", senderCode);
     authService.saveApiKey(senderCode, apiKey);
   }
 }
