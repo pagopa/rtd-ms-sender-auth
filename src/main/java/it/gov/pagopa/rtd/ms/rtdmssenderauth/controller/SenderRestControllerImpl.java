@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 @ResponseBody
 @Slf4j
 @RequiredArgsConstructor
-public class RestControllerImpl implements DefaultRestController {
+public class SenderRestControllerImpl implements SenderRestController {
 
   private final SenderAuthService authService;
 

@@ -13,12 +13,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 /**
- * Controller to expose ReST interface
+ * Controller to expose ReST interface to store and retrieve sender related information
  */
 @Api(tags = "ReST Controller")
 @RequestMapping("")
 @Validated
-public interface DefaultRestController {
+public interface SenderRestController {
 
   @GetMapping(value = "/sender-code", produces = MediaType.APPLICATION_JSON_VALUE)
   @ResponseStatus(value = HttpStatus.OK)
