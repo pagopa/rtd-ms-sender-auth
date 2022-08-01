@@ -204,8 +204,7 @@
 						"exec": [
 							"pm.test('002 - GET sender code by api key', () => {",
 							"    pm.response.to.have.status(200);",
-							"    var jsonData = JSON.stringify(pm.response.json());",
-							"    pm.expect(jsonData).to.be.eqls(pm.variables.get('sender_code_test'));",
+							"    pm.response.to.have.body(pm.variables.get('sender_code_test'));",
 							"});"
 						],
 						"type": "text/javascript"
@@ -299,8 +298,106 @@
 						"exec": [
 							"pm.test('004 - GET sender code by api key', () => {",
 							"    pm.response.to.have.status(200);",
-							"    var jsonData = JSON.stringify(pm.response.json());",
-							"    pm.expect(jsonData).to.be.eqls(pm.variables.get('sender_code_test'));",
+							"    pm.response.to.have.body(pm.variables.get('sender_code_test'));",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}{{get_sender_code_url}}?{{api_key_query_param}}={{api_key_test}}",
+					"host": [
+						"{{base_url}}{{get_sender_code_url}}"
+					],
+					"query": [
+						{
+							"key": "{{api_key_query_param}}",
+							"value": "{{api_key_test}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "005 - PUT api key: different sender code different api key",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('005 - PUT api key: different sender code different api key', () => {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}{{put_api_key_url}}{{another_sender_code}}/{{another_api_key}}",
+					"host": [
+						"{{base_url}}{{put_api_key_url}}{{another_sender_code}}"
+					],
+					"path": [
+						"{{another_api_key}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "005a - GET second sender code",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('005a - GET second sender code', () => {",
+							"    pm.response.to.have.status(200);",
+							"    pm.response.to.have.body(pm.variables.get('another_sender_code'));",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}{{get_sender_code_url}}?{{api_key_query_param}}={{another_api_key}}",
+					"host": [
+						"{{base_url}}{{get_sender_code_url}}"
+					],
+					"query": [
+						{
+							"key": "{{api_key_query_param}}",
+							"value": "{{another_api_key}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "005b - GET first sender code",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('005b - GET first sender code', () => {",
+							"    pm.response.to.have.status(200);",
+							"    pm.response.to.have.body(pm.variables.get('sender_code_test'));",
 							"});"
 						],
 						"type": "text/javascript"
