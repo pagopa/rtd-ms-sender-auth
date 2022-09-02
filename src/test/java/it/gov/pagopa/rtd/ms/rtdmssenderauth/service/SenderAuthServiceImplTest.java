@@ -4,7 +4,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.any;
 
-import it.gov.pagopa.rtd.ms.rtdmssenderauth.controller.SenderRestController.RecordNotPresent;
+import it.gov.pagopa.rtd.ms.rtdmssenderauth.exception.InternalIdAlreadyAssociatedException;
+import it.gov.pagopa.rtd.ms.rtdmssenderauth.exception.RecordNotFoundException;
 import it.gov.pagopa.rtd.ms.rtdmssenderauth.model.SenderData;
 import it.gov.pagopa.rtd.ms.rtdmssenderauth.repository.SenderAuthRepository;
 import java.util.Optional;
@@ -15,7 +16,6 @@ import org.mockito.BDDMockito;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.web.server.ResponseStatusException;
 
 @ExtendWith(MockitoExtension.class)
 class SenderAuthServiceImplTest {
@@ -37,7 +37,7 @@ class SenderAuthServiceImplTest {
     BDDMockito.doReturn(Optional.empty()).when(senderAuthRepository).findByApiKey(any());
 
     assertThatThrownBy(() -> senderAuthService.getSenderCode("any")).isInstanceOf(
-        RecordNotPresent.class);
+        RecordNotFoundException.class);
   }
 
   @Test
@@ -56,7 +56,7 @@ class SenderAuthServiceImplTest {
         .findByApiKey("12345");
 
     assertThatThrownBy(() -> senderAuthService.saveApiKey("anotherSenderCode", "12345"))
-        .isInstanceOf(ResponseStatusException.class);
+        .isInstanceOf(InternalIdAlreadyAssociatedException.class);
     Mockito.verify(senderAuthRepository, Mockito.times(0)).save(any());
     Mockito.verify(senderAuthRepository, Mockito.times(0)).findBySenderCode(any());
   }

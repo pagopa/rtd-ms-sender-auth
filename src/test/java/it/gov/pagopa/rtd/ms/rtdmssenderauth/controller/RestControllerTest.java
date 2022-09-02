@@ -5,7 +5,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import it.gov.pagopa.rtd.ms.rtdmssenderauth.controller.SenderRestController.RecordNotPresent;
+import it.gov.pagopa.rtd.ms.rtdmssenderauth.exception.RecordNotFoundException;
 import it.gov.pagopa.rtd.ms.rtdmssenderauth.service.SenderAuthService;
 import lombok.SneakyThrows;
 import org.junit.jupiter.api.Test;
@@ -49,8 +49,8 @@ class RestControllerTest {
 
   @SneakyThrows
   @Test
-  void whenGetSenderCodeThrowsRecordNotPresentExceptionThenStatusIsNotFound() {
-    BDDMockito.doThrow(RecordNotPresent.class).when(service).getSenderCode(any());
+  void whenGetSenderCodeThrowsRecordNotFoundExceptionThenStatusIsNotFound() {
+    BDDMockito.doThrow(RecordNotFoundException.class).when(service).getSenderCode(any());
 
     mockMvc.perform(MockMvcRequestBuilders
             .get(BASE_URI + GETSENDERCODE_ENDPOINT)

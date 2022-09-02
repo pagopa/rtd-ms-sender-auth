@@ -26,10 +26,6 @@ public interface SenderRestController {
       throws NotFoundException;
 
   @PutMapping(value = "/{senderCode}/{apiKey}")
-  void saveApiKey(@PathVariable("senderCode") String senderCode, @PathVariable("apiKey") String apiKey);
-
-  @ResponseStatus(HttpStatus.NOT_FOUND)
-  class RecordNotPresent extends RuntimeException {
-
-  }
+  void saveApiKey(@PathVariable("senderCode") String senderCode,
+      @PathVariable("apiKey") String apiKey);
 }
