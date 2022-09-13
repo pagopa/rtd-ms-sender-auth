@@ -1,6 +1,7 @@
 package it.gov.pagopa.rtd.ms.rtdmssenderauth.service;
 
 import it.gov.pagopa.rtd.ms.rtdmssenderauth.controller.SenderRestController.RecordNotPresent;
+import it.gov.pagopa.rtd.ms.rtdmssenderauth.controller.SenderRestController.SenderCodeAssociatedToAnotherApiKey;
 import it.gov.pagopa.rtd.ms.rtdmssenderauth.model.SenderData;
 import it.gov.pagopa.rtd.ms.rtdmssenderauth.repository.SenderAuthRepository;
 import org.junit.jupiter.api.BeforeEach;
@@ -81,6 +82,15 @@ class SenderAuthServiceImplTest {
     senderAuthService.saveApiKey("senderCode", "12345");
 
     Mockito.verify(senderAuthRepository, Mockito.times(0)).save(defaultSenderData);
+  }
+
+  @Test
+  void whenSenderCodeIsAlreadyAssociateToAnotherApiThenExceptionIsThrow() {
+    BDDMockito.doReturn(List.of(defaultSenderData)).when(senderAuthRepository)
+            .findBySenderCode("senderCode");
+
+    assertThatThrownBy(() -> senderAuthService.saveApiKey("senderCode", "56789"))
+            .isInstanceOf(SenderCodeAssociatedToAnotherApiKey.class);
   }
 
   private SenderData createSenderData() {

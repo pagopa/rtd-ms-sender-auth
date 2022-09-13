@@ -31,7 +31,9 @@ public interface SenderRestController {
   void saveApiKey(@PathVariable("senderCode") String senderCode, @PathVariable("apiKey") String apiKey);
 
   @ResponseStatus(HttpStatus.NOT_FOUND)
-  class RecordNotPresent extends RuntimeException {
+  class RecordNotPresent extends RuntimeException { }
 
-  }
+  @ResponseStatus(HttpStatus.BAD_REQUEST)
+  class SenderCodeAssociatedToAnotherApiKey extends RuntimeException { }
 }
+

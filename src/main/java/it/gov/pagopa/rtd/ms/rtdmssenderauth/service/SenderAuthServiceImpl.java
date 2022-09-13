@@ -10,6 +10,8 @@ import org.springframework.stereotype.Service;
 import java.util.HashSet;
 import java.util.Set;
 
+import static it.gov.pagopa.rtd.ms.rtdmssenderauth.controller.SenderRestController.SenderCodeAssociatedToAnotherApiKey;
+
 @Service
 @Slf4j
 @RequiredArgsConstructor
@@ -26,11 +28,19 @@ public class SenderAuthServiceImpl implements SenderAuthService {
 
     @Override
     public void saveApiKey(String senderCode, String apiKey) {
-        SenderData senderCodeOpt = senderAuthRepository.findByApiKey(apiKey)
-                .orElse(SenderData.builder().senderCodes(new HashSet<>()).apiKey(apiKey).build());
+        final var isSenderCodeUsedByAnotherApiKey = senderAuthRepository.findBySenderCode(senderCode)
+                .stream()
+                .anyMatch(it -> !it.getApiKey().equals(apiKey));
 
-        if (senderCodeOpt.addSenderAssociation(senderCode)) {
-            senderAuthRepository.save(senderCodeOpt);
+        if (isSenderCodeUsedByAnotherApiKey) {
+            throw new SenderCodeAssociatedToAnotherApiKey();
+        } else {
+            SenderData senderCodeOpt = senderAuthRepository.findByApiKey(apiKey)
+                    .orElse(SenderData.builder().senderCodes(new HashSet<>()).apiKey(apiKey).build());
+
+            if (senderCodeOpt.addSenderAssociation(senderCode)) {
+                senderAuthRepository.save(senderCodeOpt);
+            }
         }
     }
 }

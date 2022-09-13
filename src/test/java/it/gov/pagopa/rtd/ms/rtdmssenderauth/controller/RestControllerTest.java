@@ -2,6 +2,7 @@ package it.gov.pagopa.rtd.ms.rtdmssenderauth.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import it.gov.pagopa.rtd.ms.rtdmssenderauth.controller.SenderRestController.RecordNotPresent;
+import it.gov.pagopa.rtd.ms.rtdmssenderauth.controller.SenderRestController.SenderCodeAssociatedToAnotherApiKey;
 import it.gov.pagopa.rtd.ms.rtdmssenderauth.service.SenderAuthService;
 import lombok.SneakyThrows;
 import org.junit.jupiter.api.Test;
@@ -67,5 +68,15 @@ class RestControllerTest {
     mockMvc.perform(MockMvcRequestBuilders
             .put(BASE_URI + String.format(SAVEAPIKEY_ENDPOINT, "senderCode", "apiKey")))
         .andExpectAll(status().isOk());
+  }
+
+  @SneakyThrows
+  @Test
+  void whenAssociateSenderCodeToDifferentApiKeyThenBadRequest() {
+    BDDMockito.doThrow(SenderCodeAssociatedToAnotherApiKey.class).when(service).saveApiKey(any(), any());
+
+    mockMvc.perform(MockMvcRequestBuilders
+            .put(BASE_URI + String.format(SAVEAPIKEY_ENDPOINT, "senderCode", "apiKey")))
+        .andExpectAll(status().isBadRequest());
   }
 }
