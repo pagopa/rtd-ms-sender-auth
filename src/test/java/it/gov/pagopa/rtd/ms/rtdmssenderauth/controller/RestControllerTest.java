@@ -1,8 +1,8 @@
 package it.gov.pagopa.rtd.ms.rtdmssenderauth.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import it.gov.pagopa.rtd.ms.rtdmssenderauth.controller.SenderRestController.RecordNotPresent;
-import it.gov.pagopa.rtd.ms.rtdmssenderauth.controller.SenderRestController.SenderCodeAssociatedToAnotherApiKey;
+import it.gov.pagopa.rtd.ms.rtdmssenderauth.domain.exception.RecordNotFoundException;
+import it.gov.pagopa.rtd.ms.rtdmssenderauth.domain.exception.SenderCodeAssociatedToAnotherApiKey;
 import it.gov.pagopa.rtd.ms.rtdmssenderauth.service.SenderAuthService;
 import lombok.SneakyThrows;
 import org.junit.jupiter.api.Test;
@@ -53,8 +53,8 @@ class RestControllerTest {
 
   @SneakyThrows
   @Test
-  void whenGetSenderCodeThrowsRecordNotPresentExceptionThenStatusIsNotFound() {
-    BDDMockito.doThrow(RecordNotPresent.class).when(service).getSenderCodes(any());
+  void whenGetSenderCodeThrowsRecordNotFoundExceptionThenStatusIsNotFound() {
+    BDDMockito.doThrow(RecordNotFoundException.class).when(service).getSenderCodes(any());
 
     mockMvc.perform(MockMvcRequestBuilders
             .get(BASE_URI + GETSENDERCODE_ENDPOINT)

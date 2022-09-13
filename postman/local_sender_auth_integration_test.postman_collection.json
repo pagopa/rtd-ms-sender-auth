@@ -138,6 +138,7 @@
 						"exec": [
 							"pm.test('002b - Fail GET sender code: missing param value', () => {",
 							"    pm.response.to.have.status(404);",
+							"    pm.response.to.have.body(\"\");",
 							"});"
 						],
 						"type": "text/javascript"
@@ -238,6 +239,7 @@
 						"exec": [
 							"pm.test('003a - Fail PUT api key: different sender code same api key', () => {",
 							"    pm.response.to.have.status(400);",
+							"    pm.response.to.have.body(pm.variables.get('internal_id_already_associated'));",
 							"});"
 						],
 						"type": "text/javascript"
@@ -492,6 +494,16 @@
 		{
 			"key": "another_sender_code",
 			"value": "BADSC",
+			"type": "default"
+		},
+		{
+			"key": "record_not_found",
+			"value": "record not found",
+			"type": "default"
+		},
+		{
+			"key": "internal_id_already_associated",
+			"value": "internal id already associated",
 			"type": "default"
 		}
 	]

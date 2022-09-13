@@ -1,7 +1,7 @@
 package it.gov.pagopa.rtd.ms.rtdmssenderauth.service;
 
-import it.gov.pagopa.rtd.ms.rtdmssenderauth.controller.SenderRestController.RecordNotPresent;
-import it.gov.pagopa.rtd.ms.rtdmssenderauth.controller.SenderRestController.SenderCodeAssociatedToAnotherApiKey;
+import it.gov.pagopa.rtd.ms.rtdmssenderauth.domain.exception.RecordNotFoundException;
+import it.gov.pagopa.rtd.ms.rtdmssenderauth.domain.exception.SenderCodeAssociatedToAnotherApiKey;
 import it.gov.pagopa.rtd.ms.rtdmssenderauth.model.SenderData;
 import it.gov.pagopa.rtd.ms.rtdmssenderauth.repository.SenderAuthRepository;
 import org.junit.jupiter.api.BeforeEach;
@@ -41,7 +41,7 @@ class SenderAuthServiceImplTest {
     BDDMockito.doReturn(Optional.empty()).when(senderAuthRepository).findByApiKey(any());
 
     assertThatThrownBy(() -> senderAuthService.getSenderCodes("any")).isInstanceOf(
-        RecordNotPresent.class);
+        RecordNotFoundException.class);
   }
 
   @Test
