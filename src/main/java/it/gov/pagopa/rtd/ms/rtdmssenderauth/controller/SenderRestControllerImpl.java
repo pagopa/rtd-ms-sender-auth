@@ -6,6 +6,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Set;
+
 
 @RestController
 @ResponseBody
@@ -16,9 +18,9 @@ public class SenderRestControllerImpl implements SenderRestController {
   private final SenderAuthService authService;
 
   @Override
-  public String getSenderCode(String apiKey) {
+  public Set<String> getSenderCodes(String apiKey) {
     log.info("Getting SenderCode from internal ID");
-    return authService.getSenderCode(apiKey);
+    return authService.getSenderCodes(apiKey);
   }
 
   @Override
