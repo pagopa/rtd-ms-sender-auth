@@ -12,10 +12,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
@@ -68,6 +65,7 @@ class SenderAuthServiceImplTest {
   void whenApiKeyIsNotSavedThenSaveTheNewAssociationWithSenderCode() {
     BDDMockito.doReturn(Optional.empty()).when(senderAuthRepository)
         .findByApiKey("12345");
+    BDDMockito.doReturn(Collections.emptyList()).when(senderAuthRepository).findBySenderCode(any());
 
     senderAuthService.saveApiKey("senderCode", "12345");
 
