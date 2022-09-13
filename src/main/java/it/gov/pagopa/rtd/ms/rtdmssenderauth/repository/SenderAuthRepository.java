@@ -11,7 +11,7 @@ public interface SenderAuthRepository extends MongoRepository<SenderData, String
 
   Optional<SenderData> findByApiKey(String apiKey);
 
-  @Query(value = "{ 'senderCodes': { $elemMatch: ?0 } }")
+  @Query(value = "{ 'senderCodes': ?0 }")
   List<SenderData> findBySenderCode(String senderCode);
 
 }
