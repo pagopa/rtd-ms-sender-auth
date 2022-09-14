@@ -24,7 +24,7 @@ public interface SenderRestController {
 
   @GetMapping(value = "/sender-code", produces = MediaType.APPLICATION_JSON_VALUE)
   @ResponseStatus(value = HttpStatus.OK)
-  Set<String> getSenderCodes(@RequestParam(value = "internalId") String apiKey)
+  Set<String> getSenderCodes(@RequestParam(value = "apiKey") String apiKey)
       throws NotFoundException;
 
   @PutMapping(value = "/{senderCode}/{apiKey}")
