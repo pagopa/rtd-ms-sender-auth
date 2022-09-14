@@ -18,9 +18,9 @@ public class SenderRestControllerImpl implements SenderRestController {
   private final SenderAuthService authService;
 
   @Override
-  public Set<String> getSenderCodes(String apiKey) {
+  public Set<String> getSenderCodes(String internalId) {
     log.info("Getting SenderCode from internal ID");
-    return authService.getSenderCodes(apiKey);
+    return authService.getSenderCodes(internalId);
   }
 
   @Override
