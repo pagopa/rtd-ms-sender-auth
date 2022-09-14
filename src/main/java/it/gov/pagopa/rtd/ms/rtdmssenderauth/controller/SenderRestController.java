@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
+import java.util.Set;
+
 /**
  * Controller to expose ReST interface to store and retrieve sender related information
  */
@@ -22,10 +24,9 @@ public interface SenderRestController {
 
   @GetMapping(value = "/sender-code", produces = MediaType.APPLICATION_JSON_VALUE)
   @ResponseStatus(value = HttpStatus.OK)
-  String getSenderCode(@RequestParam(value = "internalId") String apiKey)
+  Set<String> getSenderCodes(@RequestParam(value = "internalId") String internalId)
       throws NotFoundException;
 
   @PutMapping(value = "/{senderCode}/{apiKey}")
-  void saveApiKey(@PathVariable("senderCode") String senderCode,
-      @PathVariable("apiKey") String apiKey);
+  void saveApiKey(@PathVariable("senderCode") String senderCode, @PathVariable("apiKey") String apiKey);
 }
