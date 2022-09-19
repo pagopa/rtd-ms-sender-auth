@@ -1,8 +1,10 @@
 package it.gov.pagopa.rtd.ms.rtdmssenderauth.service;
 
+import java.util.Set;
+
 public interface SenderAuthService {
 
-  String getSenderCode(String apiKey);
+  Set<String> getSenderCodes(String apiKey);
 
   void saveApiKey(String senderCode, String apiKey);
 }
