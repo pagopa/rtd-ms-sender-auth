@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "5d10ab2d-1a5c-4ea7-ba57-dd65c8e5be73",
+		"_postman_id": "1a94880c-7b1e-4e90-90cc-55d69f289401",
 		"name": "Local Sender Auth Micro-service Integration test",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -138,6 +138,7 @@
 						"exec": [
 							"pm.test('002b - Fail GET sender code: missing param value', () => {",
 							"    pm.response.to.have.status(404);",
+							"    pm.response.to.have.body(\"\");",
 							"});"
 						],
 						"type": "text/javascript"
@@ -230,36 +231,6 @@
 			"response": []
 		},
 		{
-			"name": "003a - Fail PUT api key: different sender code same api key",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"pm.test('003a - Fail PUT api key: different sender code same api key', () => {",
-							"    pm.response.to.have.status(400);",
-							"});"
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "PUT",
-				"header": [],
-				"url": {
-					"raw": "{{base_url}}{{put_api_key_url}}{{another_sender_code}}/{{api_key_test}}",
-					"host": [
-						"{{base_url}}{{put_api_key_url}}{{another_sender_code}}"
-					],
-					"path": [
-						"{{api_key_test}}"
-					]
-				}
-			},
-			"response": []
-		},
-		{
 			"name": "003 - PUT api key: same sender code same api key",
 			"event": [
 				{
@@ -290,48 +261,15 @@
 			"response": []
 		},
 		{
-			"name": "004 - GET sender code by api key",
+			"name": "003a - Fail PUT api key: different sender code different api key",
 			"event": [
 				{
 					"listen": "test",
 					"script": {
 						"exec": [
-							"pm.test('004 - GET sender code by api key', () => {",
-							"    pm.response.to.have.status(200);",
-							"    pm.response.to.have.body(pm.variables.get('sender_code_test'));",
-							"});"
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "{{base_url}}{{get_sender_code_url}}?{{api_key_query_param}}={{api_key_test}}",
-					"host": [
-						"{{base_url}}{{get_sender_code_url}}"
-					],
-					"query": [
-						{
-							"key": "{{api_key_query_param}}",
-							"value": "{{api_key_test}}"
-						}
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "005 - PUT api key: different sender code different api key",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"pm.test('005 - PUT api key: different sender code different api key', () => {",
-							"    pm.response.to.have.status(200);",
+							"pm.test('005 - PUT api key: sender code associated to a different api key', () => {",
+							"    pm.response.to.have.status(400);",
+							"    pm.expect(pm.response.text()).to.include(\"is already associated to another api key\");",
 							"});"
 						],
 						"type": "text/javascript"
@@ -354,50 +292,17 @@
 			"response": []
 		},
 		{
-			"name": "005a - GET second sender code",
+			"name": "004 - GET sender code by api key",
 			"event": [
 				{
 					"listen": "test",
 					"script": {
 						"exec": [
-							"pm.test('005a - GET second sender code', () => {",
+							"pm.test('004 - GET sender code by api key', () => {",
 							"    pm.response.to.have.status(200);",
-							"    pm.response.to.have.body(pm.variables.get('another_sender_code'));",
-							"});",
-							""
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "{{base_url}}{{get_sender_code_url}}?{{api_key_query_param}}={{another_api_key}}",
-					"host": [
-						"{{base_url}}{{get_sender_code_url}}"
-					],
-					"query": [
-						{
-							"key": "{{api_key_query_param}}",
-							"value": "{{another_api_key}}"
-						}
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "005b - GET first sender code",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"pm.test('005b - GET first sender code', () => {",
-							"    pm.response.to.have.status(200);",
-							"    pm.response.to.have.body(pm.variables.get('sender_code_test'));",
+							"    pm.expect(pm.response.json()).to.be.an(\"array\");",
+							"    pm.expect(pm.response.json()).to.include(pm.variables.get('sender_code_test'));",
+							"    pm.expect(pm.response.json()).to.include(pm.variables.get('another_sender_code'));",
 							"});"
 						],
 						"type": "text/javascript"
@@ -417,6 +322,36 @@
 							"key": "{{api_key_query_param}}",
 							"value": "{{api_key_test}}"
 						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "005 - PUT api key: different sender code same api key",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('006 - PUT api key: different sender code same api key', () => {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}{{put_api_key_url}}{{another_sender_code}}/{{api_key_test}}",
+					"host": [
+						"{{base_url}}{{put_api_key_url}}{{another_sender_code}}"
+					],
+					"path": [
+						"{{api_key_test}}"
 					]
 				}
 			},
@@ -492,6 +427,16 @@
 		{
 			"key": "another_sender_code",
 			"value": "BADSC",
+			"type": "default"
+		},
+		{
+			"key": "record_not_found",
+			"value": "record not found",
+			"type": "default"
+		},
+		{
+			"key": "internal_id_already_associated",
+			"value": "internal id already associated",
 			"type": "default"
 		}
 	]
