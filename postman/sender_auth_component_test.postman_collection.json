@@ -244,7 +244,9 @@
 							"pm.test('002 - GET sender code by api key', () => {",
 							"    pm.response.to.have.status(200);",
 							"    pm.response.to.have.body(`[\"${pm.variables.get('sender_code_test')}\"]`);",
-							"});"
+							"});",
+							"",
+							"_.clean(pm, pm.collectionVariables.get('sender_code_test'), pm.collectionVariables.get('api_key_test'));"
 						],
 						"type": "text/javascript"
 					}
@@ -656,7 +658,7 @@
 	"variable": [
 		{
 			"key": "base_url",
-			"value": "localhost:8080",
+			"value": "{{base_url}}",
 			"type": "default"
 		},
 		{
