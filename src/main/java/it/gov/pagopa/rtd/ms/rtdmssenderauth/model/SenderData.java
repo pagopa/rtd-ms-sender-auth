@@ -23,4 +23,16 @@ public class SenderData {
   public boolean addSenderAssociation(String senderCode) {
     return this.senderCodes.add(senderCode);
   }
+
+  public void removeSenderAssociation(String senderCode) {
+    this.senderCodes.remove(senderCode);
+  }
+
+  public boolean hasNoAssociations() {
+    return this.senderCodes.isEmpty();
+  }
+
+  public boolean isAssociatedTo(String senderCode) {
+    return this.senderCodes.contains(senderCode);
+  }
 }

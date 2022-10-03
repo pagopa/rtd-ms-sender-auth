@@ -9,6 +9,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 @Service
@@ -42,4 +43,18 @@ public class SenderAuthServiceImpl implements SenderAuthService {
             }
         }
     }
+
+  @Override
+  public void deleteAssociation(String senderCode, String apiKey) {
+    final var apiKeyAssociations = senderAuthRepository.findByApiKey(apiKey).orElse(null);
+    if (Objects.nonNull(apiKeyAssociations)) {
+      apiKeyAssociations.removeSenderAssociation(senderCode);
+      // when all association are removed delete it
+      if (apiKeyAssociations.hasNoAssociations()) {
+        senderAuthRepository.deleteByApiKey(apiKey);
+      } else {
+        senderAuthRepository.save(apiKeyAssociations);
+      }
+    }
+  }
 }
