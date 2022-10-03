@@ -7,4 +7,6 @@ public interface SenderAuthService {
   Set<String> getSenderCodes(String apiKey);
 
   void saveApiKey(String senderCode, String apiKey);
+
+  void deleteAssociation(String senderCode, String apiKey);
 }
