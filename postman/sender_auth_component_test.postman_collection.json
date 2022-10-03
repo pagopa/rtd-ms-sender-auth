@@ -257,7 +257,7 @@
 						"exec": [
 							"// put a sendercode apikey association",
 							"pm.sendRequest({",
-							"    url: `${pm.collectionVariables.get('base_url')}${pm.collectionVariables.get('put_api_key_url')}${pm.collectionVariables.get('sender_code_test')}/${pm.collectionVariables.get('api_key_test')}`,",
+							"    url: `${pm.environment.get('base_url')}${pm.collectionVariables.get('put_api_key_url')}${pm.collectionVariables.get('sender_code_test')}/${pm.collectionVariables.get('api_key_test')}`,",
 							"    method: 'PUT'",
 							"});",
 							""
@@ -306,7 +306,7 @@
 						"exec": [
 							"// pre-put a sendercode apikey association",
 							"pm.sendRequest({",
-							"    url: `${pm.collectionVariables.get('base_url')}${pm.collectionVariables.get('put_api_key_url')}${pm.collectionVariables.get('sender_code_test')}/${pm.collectionVariables.get('api_key_test')}`,",
+							"    url: `${pm.environment.get('base_url')}${pm.collectionVariables.get('put_api_key_url')}${pm.collectionVariables.get('sender_code_test')}/${pm.collectionVariables.get('api_key_test')}`,",
 							"    method: 'PUT'",
 							"});",
 							""
@@ -353,7 +353,7 @@
 						"exec": [
 							"// pre-put a sendercode apikey association",
 							"pm.sendRequest({",
-							"    url: `${pm.collectionVariables.get('base_url')}${pm.collectionVariables.get('put_api_key_url')}${pm.collectionVariables.get('sender_code_test')}/${pm.collectionVariables.get('api_key_test')}`,",
+							"    url: `${pm.environment.get('base_url')}${pm.collectionVariables.get('put_api_key_url')}${pm.collectionVariables.get('sender_code_test')}/${pm.collectionVariables.get('api_key_test')}`,",
 							"    method: 'PUT'",
 							"});",
 							""
@@ -403,13 +403,13 @@
 						"exec": [
 							"// pre-put multiple sendercode-apikey association",
 							"pm.sendRequest({",
-							"    url: `${pm.collectionVariables.get('base_url')}${pm.collectionVariables.get('put_api_key_url')}${pm.collectionVariables.get('sender_code_test')}/${pm.collectionVariables.get('api_key_test')}`,",
+							"    url: `${pm.environment.get('base_url')}${pm.collectionVariables.get('put_api_key_url')}${pm.collectionVariables.get('sender_code_test')}/${pm.collectionVariables.get('api_key_test')}`,",
 							"    method: 'PUT'",
 							"});",
 							"",
 							"setTimeout(function(){",
 							"    pm.sendRequest({",
-							"        url: `${pm.collectionVariables.get('base_url')}${pm.collectionVariables.get('put_api_key_url')}${pm.collectionVariables.get('another_sender_code')}/${pm.collectionVariables.get('api_key_test')}`,",
+							"        url: `${pm.environment.get('base_url')}${pm.collectionVariables.get('put_api_key_url')}${pm.collectionVariables.get('another_sender_code')}/${pm.collectionVariables.get('api_key_test')}`,",
 							"        method: 'PUT'",
 							"    });",
 							"}, 1000);"
@@ -445,7 +445,7 @@
 						"exec": [
 							"// pre-put a sendercode-apikey association",
 							"pm.sendRequest({",
-							"    url: `${pm.collectionVariables.get('base_url')}${pm.collectionVariables.get('put_api_key_url')}${pm.collectionVariables.get('sender_code_test')}/${pm.collectionVariables.get('api_key_test')}`,",
+							"    url: `${pm.environment.get('base_url')}${pm.collectionVariables.get('put_api_key_url')}${pm.collectionVariables.get('sender_code_test')}/${pm.collectionVariables.get('api_key_test')}`,",
 							"    method: 'PUT'",
 							"});"
 						],
@@ -462,7 +462,7 @@
 							"",
 							"pm.test('005- DELETE no association exist now', (done) => {",
 							"    pm.sendRequest({",
-							"        url: `${pm.collectionVariables.get('base_url')}/sender-code?internalId=${pm.collectionVariables.get('api_key_test')}`,",
+							"        url: `${pm.environment.get('base_url')}/sender-code?internalId=${pm.collectionVariables.get('api_key_test')}`,",
 							"        method: 'GET'",
 							"    }, (error, response) => {",
 							"        pm.response.to.have.body",
@@ -544,7 +544,7 @@
 			"response": []
 		},
 		{
-			"name": "005- DELETE an a single sender code into multiple association",
+			"name": "005- DELETE a single sender code with multiple association",
 			"event": [
 				{
 					"listen": "prerequest",
@@ -552,13 +552,13 @@
 						"exec": [
 							"// pre-put a sendercode-apikey association",
 							"pm.sendRequest({",
-							"    url: `${pm.collectionVariables.get('base_url')}${pm.collectionVariables.get('put_api_key_url')}${pm.collectionVariables.get('sender_code_test')}/${pm.collectionVariables.get('api_key_test')}`,",
+							"    url: `${pm.environment.get('base_url')}${pm.collectionVariables.get('put_api_key_url')}${pm.collectionVariables.get('sender_code_test')}/${pm.collectionVariables.get('api_key_test')}`,",
 							"    method: 'PUT'",
 							"});",
 							"",
 							"setTimeout(function(){",
 							"    pm.sendRequest({",
-							"        url: `${pm.collectionVariables.get('base_url')}${pm.collectionVariables.get('put_api_key_url')}${pm.collectionVariables.get('another_sender_code')}/${pm.collectionVariables.get('api_key_test')}`,",
+							"        url: `${pm.environment.get('base_url')}${pm.collectionVariables.get('put_api_key_url')}${pm.collectionVariables.get('another_sender_code')}/${pm.collectionVariables.get('api_key_test')}`,",
 							"        method: 'PUT'",
 							"    });",
 							"}, 1000);",
@@ -571,13 +571,13 @@
 					"listen": "test",
 					"script": {
 						"exec": [
-							"pm.test('005- DELETE an exisiting association', () => {",
+							"pm.test('005- DELETE a single sender code with multiple association', () => {",
 							"    pm.response.to.have.status(200);",
 							"});",
 							"",
 							"pm.test('005- DELETE only one association exists', (done) => {",
 							"    pm.sendRequest({",
-							"        url: `${pm.collectionVariables.get('base_url')}/sender-code?internalId=${pm.collectionVariables.get('api_key_test')}`,",
+							"        url: `${pm.environment.get('base_url')}/sender-code?internalId=${pm.collectionVariables.get('api_key_test')}`,",
 							"        method: 'GET'",
 							"    }, (error, response) => {",
 							"        pm.response.to.have.body",
@@ -635,7 +635,7 @@
 					"",
 					"Object.prototype.clean = (that, senderCode, apiKey) => {",
 					"    return that.sendRequest({",
-					"        url: `${pm.collectionVariables.get('base_url')}/${senderCode}`,",
+					"        url: `${pm.environment.get('base_url')}/${senderCode}`,",
 					"        header: {",
 					"            'internal-id': apiKey,",
 					"        },",
@@ -656,11 +656,6 @@
 		}
 	],
 	"variable": [
-		{
-			"key": "base_url",
-			"value": "{{base_url}}",
-			"type": "default"
-		},
 		{
 			"key": "put_api_key_url",
 			"value": "/",
