@@ -20,4 +20,12 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
           SenderCodeAssociatedToAnotherApiKey ex) {
     return ResponseEntity.badRequest().body(String.format("sender code %s is already associated to another api key", ex.senderCode));
   }
+
+  @ExceptionHandler(Exception.class)
+  protected ResponseEntity<?> handleUnhandledException(
+          Exception unhandledException
+  ) {
+    logger.warn("Detected unhandled exception " + unhandledException.getMessage());
+    return ResponseEntity.internalServerError().build();
+  }
 }
