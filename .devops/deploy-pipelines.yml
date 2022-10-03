@@ -156,7 +156,7 @@ stages:
                     manifests: $(customizeManifest.manifestsBundle)
                     containers: "${variables.containerRegistry}/${variables.imageRepository}:${variables.pomversion}"
 
-  - stage: 'Component test'
+  - stage: 'Component_Test'
     displayName: 'Component test on ${{ variables.environment }}'
     condition: always()
     jobs:
