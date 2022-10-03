@@ -10,7 +10,7 @@ import org.springframework.context.annotation.Configuration;
 import java.io.IOException;
 
 @Configuration
-public class MongodbConfiguration {
+public class MongodbIntegrationTestConfiguration {
 
   private static final String IP = "localhost";
   private static final int PORT = 28017;
