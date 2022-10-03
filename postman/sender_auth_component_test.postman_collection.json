@@ -1,0 +1,710 @@
+{
+	"info": {
+		"_postman_id": "1a94880c-7b1e-4e90-90cc-55d69f289401",
+		"name": "Local Sender Auth Micro-service Integration test",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "001a - Fail PUT api key: missing sender code",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('001a - Fail PUT api key missing sender code', () => {",
+							"    pm.response.to.have.status(404);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}{{put_api_key_url}}{{sender_code_blank}}/{{api_key_test}}",
+					"host": [
+						"{{base_url}}{{put_api_key_url}}{{sender_code_blank}}"
+					],
+					"path": [
+						"{{api_key_test}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "001b - Fail PUT api key: missing api key",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('001b - Fail PUT api key: missing api key', () => {",
+							"    pm.response.to.have.status(405);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}{{put_api_key_url}}{{sender_code_test}}/",
+					"host": [
+						"{{base_url}}{{put_api_key_url}}{{sender_code_test}}"
+					],
+					"path": [
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "001 - PUT api key",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('001 - PUT api key', () => {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"_.clean(pm, pm.collectionVariables.get('sender_code_test'), pm.collectionVariables.get('api_key_test'));"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}{{put_api_key_url}}{{sender_code_test}}/{{api_key_test}}",
+					"host": [
+						"{{base_url}}{{put_api_key_url}}{{sender_code_test}}"
+					],
+					"path": [
+						"{{api_key_test}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "002a - Fail GET sender code: missing query param",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('002a - Fail GET sender code: missing query param', () => {",
+							"    pm.response.to.have.status(400);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}{{get_sender_code_url}}",
+					"host": [
+						"{{base_url}}{{get_sender_code_url}}"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": "",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "002b - Fail GET sender code: missing param value",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('002b - Fail GET sender code: missing param value', () => {",
+							"    pm.response.to.have.status(404);",
+							"    pm.response.to.have.body(\"\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}{{get_sender_code_url}}?{{api_key_query_param}}=",
+					"host": [
+						"{{base_url}}{{get_sender_code_url}}"
+					],
+					"query": [
+						{
+							"key": "{{api_key_query_param}}",
+							"value": ""
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "002c - Fail GET sender code: api key not found",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('002c - Fail GET sender code: api key not found', () => {",
+							"    pm.response.to.have.status(404);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}{{get_sender_code_url}}?{{api_key_query_param}}={{api_key_not_existing}}",
+					"host": [
+						"{{base_url}}{{get_sender_code_url}}"
+					],
+					"query": [
+						{
+							"key": "{{api_key_query_param}}",
+							"value": "{{api_key_not_existing}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "002 - GET sender code by api key",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('002 - GET sender code by api key', () => {",
+							"    pm.response.to.have.status(200);",
+							"    pm.response.to.have.body(`[\"${pm.variables.get('sender_code_test')}\"]`);",
+							"});",
+							"",
+							"_.clean(pm, pm.collectionVariables.get('sender_code_test'), pm.collectionVariables.get('api_key_test'));"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"// put a sendercode apikey association",
+							"pm.sendRequest({",
+							"    url: `${pm.collectionVariables.get('base_url')}${pm.collectionVariables.get('put_api_key_url')}${pm.collectionVariables.get('sender_code_test')}/${pm.collectionVariables.get('api_key_test')}`,",
+							"    method: 'PUT'",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}{{get_sender_code_url}}?{{api_key_query_param}}={{api_key_test}}",
+					"host": [
+						"{{base_url}}{{get_sender_code_url}}"
+					],
+					"query": [
+						{
+							"key": "{{api_key_query_param}}",
+							"value": "{{api_key_test}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "003 - PUT api key: same sender code same api key",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('003 - PUT api key: same sender code same api key', () => {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"_.clean(pm, pm.collectionVariables.get('sender_code_test'), pm.collectionVariables.get('api_key_test'));"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"// pre-put a sendercode apikey association",
+							"pm.sendRequest({",
+							"    url: `${pm.collectionVariables.get('base_url')}${pm.collectionVariables.get('put_api_key_url')}${pm.collectionVariables.get('sender_code_test')}/${pm.collectionVariables.get('api_key_test')}`,",
+							"    method: 'PUT'",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}{{put_api_key_url}}{{sender_code_test}}/{{api_key_test}}",
+					"host": [
+						"{{base_url}}{{put_api_key_url}}{{sender_code_test}}"
+					],
+					"path": [
+						"{{api_key_test}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "003a - Fail PUT api key: same sender code different api key",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('005 - PUT api key: sender code associated to a different api key', () => {",
+							"    pm.response.to.have.status(400);",
+							"    pm.expect(pm.response.text()).to.include(\"is already associated to another api key\");",
+							"});",
+							"",
+							"_.clean(pm, pm.collectionVariables.get('sender_code_test'), pm.collectionVariables.get('api_key_test'));"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"// pre-put a sendercode apikey association",
+							"pm.sendRequest({",
+							"    url: `${pm.collectionVariables.get('base_url')}${pm.collectionVariables.get('put_api_key_url')}${pm.collectionVariables.get('sender_code_test')}/${pm.collectionVariables.get('api_key_test')}`,",
+							"    method: 'PUT'",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}{{put_api_key_url}}{{sender_code_test}}/{{another_api_key}}",
+					"host": [
+						"{{base_url}}{{put_api_key_url}}{{sender_code_test}}"
+					],
+					"path": [
+						"{{another_api_key}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "004 - GET multiple sender code by api key",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('004 - GET sender code by api key', () => {",
+							"    pm.response.to.have.status(200);",
+							"    pm.expect(pm.response.json()).to.be.an(\"array\");",
+							"    pm.expect(pm.response.json()).to.include(pm.variables.get('sender_code_test'));",
+							"    pm.expect(pm.response.json()).to.include(pm.variables.get('another_sender_code'));",
+							"});",
+							"",
+							"_.clean(pm, pm.collectionVariables.get('sender_code_test'), pm.collectionVariables.get('api_key_test'));",
+							"_.clean(pm, pm.collectionVariables.get('another_sender_code'), pm.collectionVariables.get('api_key_test'));"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"// pre-put multiple sendercode-apikey association",
+							"pm.sendRequest({",
+							"    url: `${pm.collectionVariables.get('base_url')}${pm.collectionVariables.get('put_api_key_url')}${pm.collectionVariables.get('sender_code_test')}/${pm.collectionVariables.get('api_key_test')}`,",
+							"    method: 'PUT'",
+							"});",
+							"",
+							"setTimeout(function(){",
+							"    pm.sendRequest({",
+							"        url: `${pm.collectionVariables.get('base_url')}${pm.collectionVariables.get('put_api_key_url')}${pm.collectionVariables.get('another_sender_code')}/${pm.collectionVariables.get('api_key_test')}`,",
+							"        method: 'PUT'",
+							"    });",
+							"}, 1000);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}{{get_sender_code_url}}?{{api_key_query_param}}={{api_key_test}}",
+					"host": [
+						"{{base_url}}{{get_sender_code_url}}"
+					],
+					"query": [
+						{
+							"key": "{{api_key_query_param}}",
+							"value": "{{api_key_test}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "005- DELETE an exisiting association",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"// pre-put a sendercode-apikey association",
+							"pm.sendRequest({",
+							"    url: `${pm.collectionVariables.get('base_url')}${pm.collectionVariables.get('put_api_key_url')}${pm.collectionVariables.get('sender_code_test')}/${pm.collectionVariables.get('api_key_test')}`,",
+							"    method: 'PUT'",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('005- DELETE an exisiting association', () => {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test('005- DELETE no association exist now', (done) => {",
+							"    pm.sendRequest({",
+							"        url: `${pm.collectionVariables.get('base_url')}/sender-code?internalId=${pm.collectionVariables.get('api_key_test')}`,",
+							"        method: 'GET'",
+							"    }, (error, response) => {",
+							"        pm.response.to.have.body",
+							"        pm.expect(response).to.have.status(404);",
+							"        done();",
+							"    });",
+							"});",
+							"",
+							"_.clean(pm, pm.collectionVariables.get('sender_code_test'), pm.collectionVariables.get('api_key_test'));"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "internal-id",
+						"value": "{{api_key_test}}",
+						"type": "default"
+					}
+				],
+				"url": {
+					"raw": "{{base_url}}/{{sender_code_test}}",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"{{sender_code_test}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "005- DELETE a non exisiting association",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('005- DELETE a non exisiting association', () => {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "internal-id",
+						"value": "{{api_key_test}}",
+						"type": "default"
+					}
+				],
+				"url": {
+					"raw": "{{base_url}}/{{sender_code_test}}",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"{{sender_code_test}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "005- DELETE an a single sender code into multiple association",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"// pre-put a sendercode-apikey association",
+							"pm.sendRequest({",
+							"    url: `${pm.collectionVariables.get('base_url')}${pm.collectionVariables.get('put_api_key_url')}${pm.collectionVariables.get('sender_code_test')}/${pm.collectionVariables.get('api_key_test')}`,",
+							"    method: 'PUT'",
+							"});",
+							"",
+							"setTimeout(function(){",
+							"    pm.sendRequest({",
+							"        url: `${pm.collectionVariables.get('base_url')}${pm.collectionVariables.get('put_api_key_url')}${pm.collectionVariables.get('another_sender_code')}/${pm.collectionVariables.get('api_key_test')}`,",
+							"        method: 'PUT'",
+							"    });",
+							"}, 1000);",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('005- DELETE an exisiting association', () => {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test('005- DELETE only one association exists', (done) => {",
+							"    pm.sendRequest({",
+							"        url: `${pm.collectionVariables.get('base_url')}/sender-code?internalId=${pm.collectionVariables.get('api_key_test')}`,",
+							"        method: 'GET'",
+							"    }, (error, response) => {",
+							"        pm.response.to.have.body",
+							"        pm.expect(response).to.have.status(200);",
+							"        done();",
+							"    });",
+							"});",
+							"",
+							"_.clean(pm, pm.collectionVariables.get('sender_code_test'), pm.collectionVariables.get('api_key_test'));",
+							"_.clean(pm, pm.collectionVariables.get('another_sender_code'), pm.collectionVariables.get('api_key_test'));"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "internal-id",
+						"value": "{{api_key_test}}",
+						"type": "default"
+					}
+				],
+				"url": {
+					"raw": "{{base_url}}/{{sender_code_test}}",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"{{sender_code_test}}"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					"// utils = {",
+					"//     deleteBySenderCode: (senderCode, apiKey) => {",
+					"//         pm.sendRequest({",
+					"//             url: `${pm.collectionVariables.get('base_url')}/${senderCode}`,",
+					"//             header: {",
+					"//                 'internal-id': apiKey,",
+					"//             },",
+					"//             method: 'DELETE'",
+					"//         });",
+					"//     }",
+					"// }",
+					"",
+					"Object.prototype.clean = (that, senderCode, apiKey) => {",
+					"    return that.sendRequest({",
+					"        url: `${pm.collectionVariables.get('base_url')}/${senderCode}`,",
+					"        header: {",
+					"            'internal-id': apiKey,",
+					"        },",
+					"        method: 'DELETE'",
+					"    });",
+					"};"
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "{{base_url}}",
+			"type": "default"
+		},
+		{
+			"key": "put_api_key_url",
+			"value": "/",
+			"type": "default"
+		},
+		{
+			"key": "sender_code_test",
+			"value": "12345",
+			"type": "default"
+		},
+		{
+			"key": "api_key_test",
+			"value": "apikeyprova",
+			"type": "default"
+		},
+		{
+			"key": "get_sender_code_url",
+			"value": "/sender-code",
+			"type": "default"
+		},
+		{
+			"key": "api_key_query_param",
+			"value": "internalId",
+			"type": "default"
+		},
+		{
+			"key": "api_key_not_existing",
+			"value": "apikeynotexisting",
+			"type": "default"
+		},
+		{
+			"key": "another_api_key",
+			"value": "anotherApiKey",
+			"type": "default"
+		},
+		{
+			"key": "another_sender_code",
+			"value": "anotherSenderCode",
+			"type": "default"
+		},
+		{
+			"key": "sender_code_blank",
+			"value": "",
+			"type": "default"
+		}
+	]
+}

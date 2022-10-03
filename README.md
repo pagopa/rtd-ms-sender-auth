@@ -11,7 +11,7 @@ docker-compose up -d --build
 ## Local integration tests
 Once the 2 containers are running, you can run the following command to carry out the integration tests.
 ```bash
-newman run postman/local_sender_auth_integration_test.postman_collection.json
+newman run postman/sender_auth_component_test.postman_collection.json
 ```
 > You need to have [newman](https://learning.postman.com/docs/running-collections/using-newman-cli/command-line-integration-with-newman/) installed.
 
