@@ -33,6 +33,7 @@ class RestControllerTest {
   private static final String GETSENDERCODE_ENDPOINT = "/sender-code";
   private static final String SAVEAPIKEY_ENDPOINT = "/%s/%s";
   private static final String DELETE_ASSOCIATION_ENDPOINT = "/%s";
+  private static final String AUTHORIZE_ENDPOINT = "/authorize/%s";
   private static final String HEADER_INTERNAL_ID = "internal-id";
 
   @SneakyThrows
@@ -116,5 +117,34 @@ class RestControllerTest {
             MockMvcRequestBuilders.delete(BASE_URI + String.format(DELETE_ASSOCIATION_ENDPOINT, "senderCode"))
                     .header(HEADER_INTERNAL_ID, "apiKey")
     ).andExpectAll(status().isInternalServerError());
+  }
+
+  @SneakyThrows
+  @Test
+  void whenSenderCodeIsAssociatedToGivenApiKeyThenReturnsOk() {
+    BDDMockito.doReturn(true).when(service).authorize("senderCode", "apiKey");
+    mockMvc.perform(MockMvcRequestBuilders
+                    .get(BASE_URI + String.format(AUTHORIZE_ENDPOINT, "senderCode"))
+                    .header(HEADER_INTERNAL_ID, "apiKey"))
+            .andExpectAll(status().isOk());
+  }
+
+  @SneakyThrows
+  @Test
+  void whenSenderCodeIsNotAssociatedToGivenApiKeyThenReturnsUnauthorized() {
+    BDDMockito.doReturn(false).when(service).authorize("senderCode", "apiKey");
+    mockMvc.perform(MockMvcRequestBuilders
+                    .get(BASE_URI + String.format(AUTHORIZE_ENDPOINT, "senderCode"))
+                    .header(HEADER_INTERNAL_ID, "apiKey"))
+            .andExpectAll(status().isUnauthorized());
+  }
+
+  @SneakyThrows
+  @Test
+  void whenInternalIdIsMissingThenAuthorizeReturnBadRequest() {
+    BDDMockito.doNothing().when(service).deleteAssociation(any(), any());
+    mockMvc.perform(
+            MockMvcRequestBuilders.get(BASE_URI + String.format(AUTHORIZE_ENDPOINT, "senderCode"))
+    ).andExpectAll(status().isBadRequest());
   }
 }

@@ -25,6 +25,9 @@ public interface SenderRestController {
   @PutMapping(value = "/{senderCode}/{apiKey}")
   void saveApiKey(@PathVariable("senderCode") String senderCode, @PathVariable("apiKey") String apiKey);
 
+  @GetMapping("/authorize/{senderCode}")
+  void authorizeSender(@PathVariable("senderCode") String senderCode, @RequestHeader("internal-id") String internalId);
+
   @DeleteMapping(value = "/{senderCode}")
   void deleteApiKey(@PathVariable("senderCode") String senderCode, @RequestHeader("internal-id") String internalId);
 }
