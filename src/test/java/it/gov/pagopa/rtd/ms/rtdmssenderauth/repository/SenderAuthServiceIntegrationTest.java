@@ -16,6 +16,8 @@ import java.util.Set;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @SpringBootTest()
 @AutoConfigureDataMongo
@@ -67,6 +69,18 @@ class SenderAuthServiceIntegrationTest {
 
     Assertions.assertThatThrownBy(() -> senderAuthService.saveApiKey("senderCode1", "apiKey2"))
             .isInstanceOf(SenderCodeAssociatedToAnotherApiKey.class);
+  }
+
+  @Test
+  void whenSenderCodeIsAssociatedThenIsAuthorized() {
+    senderAuthService.saveApiKey("senderCode",  "12345");
+    assertTrue(senderAuthService.authorize("senderCode", "12345"));
+  }
+
+  @Test
+  void whenSenderCodeIsNotAssociatedToAnApiKeyThenIsUnauthorized() {
+    senderAuthService.saveApiKey("senderCode",  "12345");
+    assertFalse(senderAuthService.authorize("senderCode1", "12345"));
   }
 
   private SenderData createSenderData(Set<String> senderCodes) {

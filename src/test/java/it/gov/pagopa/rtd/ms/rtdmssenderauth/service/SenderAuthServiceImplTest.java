@@ -139,6 +139,32 @@ class SenderAuthServiceImplTest {
     Mockito.verify(senderAuthRepository, Mockito.times(0)).deleteByApiKey(any());
   }
 
+  @Test
+  void whenSenderCodeIsAssociatedThenIsAuthorized() {
+    BDDMockito.doReturn(Optional.of(defaultSenderData)).when(senderAuthRepository)
+            .findByApiKey("12345");
+
+    assertTrue(senderAuthService.authorize("senderCode", "12345"));
+  }
+
+  @Test
+  void whenSenderCodeIsNotAssociatedToAnApiKeyThenIsUnauthorized() {
+    BDDMockito.doReturn(Optional.of(defaultSenderData)).when(senderAuthRepository)
+            .findByApiKey("12345");
+
+    assertFalse(senderAuthService.authorize("senderCode1", "12345"));
+  }
+
+  @Test
+  void whenApiKeyNotExistsThenIsUnauthorized() {
+    BDDMockito.doReturn(Optional.empty()).when(senderAuthRepository)
+            .findByApiKey("12345");
+
+    assertFalse(senderAuthService.authorize("senderCode", "12345"));
+  }
+
+
+
   private SenderData createSenderData() {
     return SenderData.builder()
         .senderCodes(new HashSet<>(List.of("senderCode")))
