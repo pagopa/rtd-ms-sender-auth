@@ -1,6 +1,7 @@
 package it.gov.pagopa.rtd.ms.rtdmssenderauth.controller;
 
 import it.gov.pagopa.rtd.ms.rtdmssenderauth.domain.exception.RecordNotFoundException;
+import it.gov.pagopa.rtd.ms.rtdmssenderauth.domain.exception.SenderUnauthorized;
 import it.gov.pagopa.rtd.ms.rtdmssenderauth.service.SenderAuthService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -28,6 +29,14 @@ public class SenderRestControllerImpl implements SenderRestController {
   public void saveApiKey(String senderCode, String apiKey) {
     log.info("Saving internal ID for SenderCode {}", senderCode);
     authService.saveApiKey(senderCode, apiKey);
+  }
+
+  @Override
+  public void authorizeSender(String senderCode, String internalId) {
+    log.info("Checking authorization for SenderCode {}", senderCode);
+    if (!authService.authorize(senderCode, internalId)) {
+      throw new SenderUnauthorized(senderCode);
+    }
   }
 
   @Override
