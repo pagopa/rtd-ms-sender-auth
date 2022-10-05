@@ -158,6 +158,16 @@ stages:
                     namespace: '$(deployNamespace)'
                     manifests: $(customizeManifest.manifestsBundle)
                     containers: "${variables.containerRegistry}/${variables.imageRepository}:${variables.pomversion}"
+                - task: Kubernetes@1
+                  displayName: Rollout Restart
+                  condition: eq(variables.componentTest, true)
+                  inputs:
+                    connectionType: 'Kubernetes Service Connection'
+                    kubernetesServiceEndpoint: ${{ variables.kubernetesServiceConnection }}
+                    namespace: '$(deployNamespace)'
+                    command: 'rollout'
+                    arguments: 'restart deploy rtdmssenderauth'
+
 
   - stage: 'Component_Test'
     displayName: 'Component test on ${{ variables.environment }}'
