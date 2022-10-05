@@ -42,4 +42,26 @@ public class SenderAuthServiceImpl implements SenderAuthService {
             }
         }
     }
+
+    @Override
+    public boolean authorize(String senderCode, String apiKey) {
+        return senderAuthRepository.findByApiKey(apiKey)
+                .map(senderData -> senderData.isAssociatedTo(senderCode))
+                .orElse(false);
+    }
+
+  @Override
+  public void deleteAssociation(String senderCode, String apiKey) {
+    final var apiKeyAssociationsOrEmpty = senderAuthRepository.findByApiKey(apiKey);
+    if (apiKeyAssociationsOrEmpty.isPresent()) {
+      final var apiKeyAssociations = apiKeyAssociationsOrEmpty.get();
+      apiKeyAssociations.removeSenderAssociation(senderCode);
+      // when all association are removed delete it
+      if (apiKeyAssociations.hasNoAssociations()) {
+        senderAuthRepository.deleteByApiKey(apiKey);
+      } else {
+        senderAuthRepository.save(apiKeyAssociations);
+      }
+    }
+  }
 }

@@ -5,12 +5,7 @@ import org.springframework.data.crossstore.ChangeSetPersister.NotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Set;
 
@@ -29,4 +24,10 @@ public interface SenderRestController {
 
   @PutMapping(value = "/{senderCode}/{apiKey}")
   void saveApiKey(@PathVariable("senderCode") String senderCode, @PathVariable("apiKey") String apiKey);
+
+  @GetMapping("/authorize/{senderCode}")
+  void authorizeSender(@PathVariable("senderCode") String senderCode, @RequestHeader("internal-id") String internalId);
+
+  @DeleteMapping(value = "/{senderCode}")
+  void deleteApiKey(@PathVariable("senderCode") String senderCode, @RequestHeader("internal-id") String internalId);
 }

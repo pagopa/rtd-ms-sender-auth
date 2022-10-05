@@ -30,6 +30,7 @@ variables:
   ${{ if or(startsWith(variables['Build.SourceBranch'], 'refs/heads/develop'), startsWith(variables['Build.SourceBranch'], 'refs/heads/RTD')) }}:
     environment: 'DEV'
     isToDeploy: true
+    componentTest: true
     dockerRegistryServiceConnection: '$(DEV_CONTAINER_REGISTRY_SERVICE_CONN)'
     kubernetesServiceConnection: '$(DEV_KUBERNETES_SERVICE_CONN)'
     containerRegistry: '$(DEV_CONTAINER_REGISTRY_NAME)'
@@ -38,6 +39,7 @@ variables:
   ${{ if startsWith(variables['Build.SourceBranch'], 'refs/heads/uat') }}:
     environment: 'UAT'
     isToDeploy: true
+    componentTest: true
     dockerRegistryServiceConnection: '$(UAT_CONTAINER_REGISTRY_SERVICE_CONN)'
     kubernetesServiceConnection: '$(UAT_KUBERNETES_SERVICE_CONN)'
     containerRegistry: '$(UAT_CONTAINER_REGISTRY_NAME)'
@@ -46,6 +48,7 @@ variables:
   ${{ if startsWith(variables['Build.SourceBranch'], 'refs/heads/main') }}:
     environment: 'PROD'
     isToDeploy: true
+    componentTest: false
     dockerRegistryServiceConnection: '$(PROD_CONTAINER_REGISTRY_SERVICE_CONN)'
     kubernetesServiceConnection: '$(PROD_KUBERNETES_SERVICE_CONN)'
     containerRegistry: '$(PROD_CONTAINER_REGISTRY_NAME)'
@@ -155,3 +158,37 @@ stages:
                     namespace: '$(deployNamespace)'
                     manifests: $(customizeManifest.manifestsBundle)
                     containers: "${variables.containerRegistry}/${variables.imageRepository}:${variables.pomversion}"
+
+  - stage: 'Component_Test'
+    displayName: 'Component test on ${{ variables.environment }}'
+    condition: eq(variables.componentTest, true)
+    jobs:
+      - job: 'Run_Postman_collection_on_${{ variables.environment }}'
+        displayName: 'Run Postman collection on ${{ variables.environment }}'
+        pool:
+          name: $(selfHostedAgentPool)
+        steps:
+          - task: NodeTool@0
+            inputs:
+              versionSpec: '14.x'
+          - task: Npm@1
+            displayName: Install newman
+            inputs:
+              command: custom
+              customCommand: install -g newman
+          - task: DownloadSecureFile@1
+            displayName: 'download postman environment'
+            name: postman_env
+            inputs:
+              secureFile: postman_k8s_env.json
+          - task: CmdLine@2
+            displayName: Run newman
+            continueOnError: true # Useful to avoid the skipping of result publishing task
+            inputs:
+              script: newman run postman/sender_auth_component_test.postman_collection.json -e $(postman_env.secureFilePath) --reporters cli,junit --reporter-junit-export result/test-result.xml
+          - task: PublishTestResults@2
+            inputs:
+              testResultsFormat: 'JUnit'
+              testResultsFiles: '**/test-*.xml'
+              searchFolder: '$(System.DefaultWorkingDirectory)/result/'
+              testRunTitle: 'Publish Newman Test Results'
