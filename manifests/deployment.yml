@@ -19,10 +19,10 @@ spec:
             - containerPort: 8080
           imagePullPolicy: Always
           envFrom:
-#            - configMapRef:
-#                name: rtdmssenderauth
-#             - secretRef:
-#                 name: application-insights
+            - configMapRef:
+                name: rtdmssenderauth
+            - secretRef:
+                name: application-insights
 #             - secretRef:
 #                 name: rtd-blob-storage-events
 #             - secretRef:
