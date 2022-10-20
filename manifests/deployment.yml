@@ -20,7 +20,7 @@ spec:
           imagePullPolicy: Always
           envFrom:
             - configMapRef:
-                name: rtdmssenderauth
+                name: rtdsenderauth
             - secretRef:
                 name: application-insights
 #             - secretRef:
