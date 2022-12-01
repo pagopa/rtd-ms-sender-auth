@@ -183,7 +183,7 @@
 					"script": {
 						"exec": [
 							"pm.test('002b - Fail GET sender code: missing param value', () => {",
-							"    pm.response.to.have.status(404);",
+							"    pm.response.to.have.status(401);",
 							"    pm.response.to.have.body(\"\");",
 							"});"
 						],
@@ -217,7 +217,7 @@
 					"script": {
 						"exec": [
 							"pm.test('002c - Fail GET sender code: api key not found', () => {",
-							"    pm.response.to.have.status(404);",
+							"    pm.response.to.have.status(401);",
 							"});"
 						],
 						"type": "text/javascript"
