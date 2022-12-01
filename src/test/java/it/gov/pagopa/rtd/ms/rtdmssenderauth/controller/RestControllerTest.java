@@ -59,7 +59,7 @@ class RestControllerTest {
     mockMvc.perform(MockMvcRequestBuilders
             .get(BASE_URI + GETSENDERCODE_ENDPOINT)
             .param("internalId", "xxx"))
-        .andExpectAll(status().isNotFound());
+        .andExpectAll(status().isUnauthorized());
   }
 
   @SneakyThrows
