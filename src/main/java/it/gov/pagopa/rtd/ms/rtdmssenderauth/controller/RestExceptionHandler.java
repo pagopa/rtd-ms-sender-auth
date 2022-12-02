@@ -13,7 +13,7 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
 
   @ExceptionHandler(RecordNotFoundException.class)
   protected ResponseEntity<String> handleEntityNotFound(RecordNotFoundException ex) {
-    return ResponseEntity.notFound().build();
+    return ResponseEntity.status(401).build();
   }
 
   @ExceptionHandler(SenderCodeAssociatedToAnotherApiKey.class)
