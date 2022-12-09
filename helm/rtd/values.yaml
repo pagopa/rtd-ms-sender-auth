@@ -1,0 +1,57 @@
+microservice-chart:
+  namespace: "rtd"
+  nameOverride: ""
+  fullnameOverride: ""
+
+  livenessProbe:
+    httpGet:
+      path: /status/live
+      port: 8080
+    initialDelaySeconds: 60
+    failureThreshold: 6
+    periodSeconds: 10
+
+  readinessProbe:
+    httpGet:
+      path: /status/ready
+      port: 8080
+    initialDelaySeconds: 60
+    failureThreshold: 6
+    periodSeconds: 10
+
+  podAnnotations: { }
+
+  deployment:
+    create: true
+
+  service:
+    create: true
+    type: ClusterIP
+    port: 8080
+
+  ingress:
+    create: true
+    path: /rtdmssenderauth/(.*)
+
+  serviceAccount:
+    create: false
+    annotations: {}
+    name: ""
+
+  podSecurityContext:
+    seccompProfile:
+      type: RuntimeDefault
+
+  securityContext:
+    allowPrivilegeEscalation: false
+
+  envSecret:
+    MONGODB_CONNECTION_URI: mongo-db-connection-uri
+    APPLICATIONINSIGHTS_CONNECTION_STRING: appinsights-instrumentation-key
+
+  envConfigMapExternals:
+    rtdsenderauth:
+      JAVA_TOOL_OPTIONS: JAVA_TOOL_OPTIONS
+      APPLICATIONINSIGHTS_ROLE_NAME: APPLICATIONINSIGHTS_ROLE_NAME
+      APPLICATIONINSIGHTS_INSTRUMENTATION_LOGGING_LEVEL: APPLICATIONINSIGHTS_INSTRUMENTATION_LOGGING_LEVEL
+      APPLICATIONINSIGHTS_INSTRUMENTATION_MICROMETER_ENABLED: APPLICATIONINSIGHTS_INSTRUMENTATION_MICROMETER_ENABLED
