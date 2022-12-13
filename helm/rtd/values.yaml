@@ -3,21 +3,21 @@ microservice-chart:
   nameOverride: ""
   fullnameOverride: ""
 
-  livenessProbe:
-    httpGet:
-      path: /status/live
-      port: 8080
-    initialDelaySeconds: 60
-    failureThreshold: 6
-    periodSeconds: 10
-
-  readinessProbe:
-    httpGet:
-      path: /status/ready
-      port: 8080
-    initialDelaySeconds: 60
-    failureThreshold: 6
-    periodSeconds: 10
+#  livenessProbe:
+#    httpGet:
+#      path: /status/live
+#      port: 8080
+#    initialDelaySeconds: 60
+#    failureThreshold: 6
+#    periodSeconds: 10
+#
+#  readinessProbe:
+#    httpGet:
+#      path: /status/ready
+#      port: 8080
+#    initialDelaySeconds: 60
+#    failureThreshold: 6
+#    periodSeconds: 10
 
   podAnnotations: { }
 
