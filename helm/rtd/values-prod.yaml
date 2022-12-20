@@ -1,6 +1,6 @@
 microservice-chart:
   image:
-    repository: cstarpcommonacr.azurecr.io/rtd-ms-sender-auth
+    repository: cstarpcommonacr.azurecr.io/rtdmssenderauth
     tag: latest
     pullPolicy: Always
 
