@@ -29,8 +29,8 @@ variables:
   # If the branch is develop or a feature branch starting with RTD, deploy in DEV environment
   ${{ if or(startsWith(variables['Build.SourceBranch'], 'refs/heads/develop'), startsWith(variables['Build.SourceBranch'], 'refs/heads/RTD')) }}:
     environment: 'DEV'
-    isToDeploy: true
-    componentTest: true
+    isToDeploy: false
+    componentTest: false
     dockerRegistryServiceConnection: '$(DEV_CONTAINER_REGISTRY_SERVICE_CONN)'
     kubernetesServiceConnection: '$(DEV_KUBERNETES_SERVICE_CONN)'
     containerRegistry: '$(DEV_CONTAINER_REGISTRY_NAME)'
@@ -38,8 +38,8 @@ variables:
 
   ${{ if startsWith(variables['Build.SourceBranch'], 'refs/heads/uat') }}:
     environment: 'UAT'
-    isToDeploy: true
-    componentTest: true
+    isToDeploy: false
+    componentTest: false
     dockerRegistryServiceConnection: '$(UAT_CONTAINER_REGISTRY_SERVICE_CONN)'
     kubernetesServiceConnection: '$(UAT_KUBERNETES_SERVICE_CONN)'
     containerRegistry: '$(UAT_CONTAINER_REGISTRY_NAME)'
