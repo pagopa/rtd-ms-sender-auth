@@ -15,6 +15,7 @@
     <description>micro-service responsible to store the association between sender code and api key</description>
     <properties>
         <java.version>11</java.version>
+        <snakeyaml.version>1.33</snakeyaml.version>
     </properties>
     <dependencies>
         <dependency>
