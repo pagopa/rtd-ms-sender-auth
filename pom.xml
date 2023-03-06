@@ -46,6 +46,11 @@
             <version>3.5.0</version>
             <scope>test</scope>
         </dependency>
+        <!-- Liveness & readiness actuator -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>
     </dependencies>
 
     <build>
