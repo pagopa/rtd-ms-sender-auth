@@ -5,7 +5,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.7.4</version>
+        <version>2.7.1</version>
         <relativePath/>
     </parent>
     <groupId>it.gov.pagopa.rtd.ms</groupId>
@@ -15,8 +15,6 @@
     <description>micro-service responsible to store the association between sender code and api key</description>
     <properties>
         <java.version>11</java.version>
-        <snakeyaml.version>1.33</snakeyaml.version>
-        <jackson-core.version>2.14.0</jackson-core.version>
     </properties>
     <dependencies>
         <dependency>
@@ -52,11 +50,6 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-actuator</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-databind</artifactId>
-            <version>${jackson-core.version}</version>
         </dependency>
     </dependencies>
 
