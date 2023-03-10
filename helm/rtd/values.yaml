@@ -49,6 +49,9 @@ microservice-chart:
   securityContext:
     allowPrivilegeEscalation: false
 
+  envConfig:
+    APPLICATIONINSIGHTS_PREVIEW_PROFILER_ENABLED: "false"
+
   envSecret:
     MONGODB_CONNECTION_URI: mongo-db-connection-uri
     APPLICATIONINSIGHTS_CONNECTION_STRING: appinsights-instrumentation-key
