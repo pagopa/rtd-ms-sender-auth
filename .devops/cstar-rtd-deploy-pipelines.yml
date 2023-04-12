@@ -6,6 +6,10 @@ parameters:
     displayName: 'Launch maven and docker build'
     type: boolean
     default: true
+  - name: 'buildNative'
+    displayName: 'Deploy and build native version'
+    type: boolean
+    default: true
 
 trigger:
   branches:
@@ -17,6 +21,8 @@ trigger:
     include:
       - src/*
       - pom.xml
+      - helm/*
+      - Dockerfile.native
 
 pr: none
 
@@ -34,7 +40,7 @@ variables:
   settingsXmlSecureFileName: '$(SETTINGS_XML_RO_SECURE_FILE_NAME)'
   canDeploy: true
 
-  # If the branch is develop or a feature branch starting with CEN, deploy in DEV environment
+  # If the branch is develop, deploy in DEV environment
   ${{ if startsWith(variables['Build.SourceBranch'], 'refs/heads/develop') }}:
     environment: 'DEV'
     componentTest: true
@@ -110,6 +116,10 @@ stages:
               containerRegistry: '$(dockerRegistryServiceConnection)'
               repository: '$(imageRepository)'
               command: 'buildAndPush'
+              ${{ if eq(parameters.buildNative, true) }}:
+                Dockerfile: 'Dockerfile.native'
+              ${{ else }}:
+                Dockerfile: 'Dockerfile'
               tags: |
                 $(Build.BuildId)
                 latest
