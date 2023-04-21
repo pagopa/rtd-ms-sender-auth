@@ -1,11 +1,11 @@
-FROM ghcr.io/graalvm/native-image:ol8-java17-22 AS builder
+FROM ghcr.io/graalvm/native-image:ol8-java17-22@sha256:3210af2c1bdf6a73cd82092909e5ed4674ef09caa1b32f2b05db7f232aba72f2 AS builder
 
 WORKDIR /build
 COPY . .
 
 RUN ./mvnw clean package -Pnative -DskipTests
 
-FROM ubuntu:lunar-20230128 as runtime
+FROM ubuntu:lunar-20230128@sha256:678c136e4e918eff1c5e83383859e1ea2227d75ae5fe662c9122711aa6594a2a as runtime
 
 EXPOSE 8080
 
