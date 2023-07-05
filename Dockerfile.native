@@ -5,11 +5,12 @@ COPY . .
 
 RUN ./mvnw clean package -Pnative -DskipTests
 
-FROM ubuntu:lunar-20230128@sha256:678c136e4e918eff1c5e83383859e1ea2227d75ae5fe662c9122711aa6594a2a AS runtime
+FROM alpine:3.18.2@sha256:82d1e9d7ed48a7523bdebc18cf6290bdb97b82302a8a9c27d4fe885949ea94d1 AS runtime
 
 EXPOSE 8080
 
-RUN useradd --uid 10000 runner
+# alpine has different commands than debian
+RUN addgroup -S runnergroup && adduser -S runner -u 10000 -G runnergroup
 USER 10000
 
 COPY --from=builder /build/target/rtd-ms-sender-auth .
