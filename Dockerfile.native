@@ -9,7 +9,8 @@ FROM alpine:3.18.2@sha256:82d1e9d7ed48a7523bdebc18cf6290bdb97b82302a8a9c27d4fe88
 
 EXPOSE 8080
 
-RUN useradd --uid 10000 runner
+# alpine has different commands than debian
+RUN addgroup -S runnergroup && adduser -S runner -u 10000 -G runnergroup
 USER 10000
 
 COPY --from=builder /build/target/rtd-ms-sender-auth .
