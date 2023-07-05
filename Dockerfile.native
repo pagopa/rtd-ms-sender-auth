@@ -5,9 +5,12 @@ COPY . .
 
 RUN ./mvnw clean package -Pnative -DskipTests
 
-FROM ubuntu:lunar-20230128@sha256:678c136e4e918eff1c5e83383859e1ea2227d75ae5fe662c9122711aa6594a2a as runtime
+FROM ubuntu:jammy-20230624@sha256:0bced47fffa3361afa981854fcabcd4577cd43cebbb808cea2b1f33a3dd7f508 AS runtime
 
 EXPOSE 8080
+
+RUN useradd --uid 10000 runner
+USER 10000
 
 COPY --from=builder /build/target/rtd-ms-sender-auth .
 
