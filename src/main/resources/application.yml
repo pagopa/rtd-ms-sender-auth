@@ -1,4 +1,3 @@
-spring.application.name: rtd-ms-sender-auth-local
 logging:
   level:
     root: INFO
@@ -10,7 +9,7 @@ spring:
 
   data:
     mongodb:
-      uri: ${MONGODB_CONNECTION_URI:mongodb://root:root@localhost:27017}
+      uri: ${MONGODB_CONNECTION_URI:mongodb://localhost:27017}
       database: ${MONGODB_NAME:rtd}
 
 management:
@@ -20,11 +19,11 @@ management:
       probes:
         enabled: true
 
+applicationinsights.enabled: true
+otel.springboot.resource.attributes.service.name: ${APPLICATIONINSIGHTS_ROLE_NAME:rtdsenderauth}
 otel.instrumentation.logback-appender.enabled: true # enable logback instrumentation
 otel.traces.sampler.probability: 1.0 # sample probability for tracing (spans)
 otel.metric.export.interval: 60000 # sampling rate for metrics (millis)
 otel.exporter.otlp.enabled: false # disable send to OTLP endpoint
 
-applicationinsights:
-  enabled: true
-  connectionstring: ${APPINSIGHTS_CONNECTION_STRING}
+
