@@ -20,7 +20,7 @@ management:
       probes:
         enabled: true
 
-otel.instrumentation.logback-appender.enabled: false # enable logback instrumentation
+otel.instrumentation.logback-appender.enabled: true # enable logback instrumentation
 otel.traces.sampler.probability: 1.0 # sample probability for tracing (spans)
 otel.metric.export.interval: 60000 # sampling rate for metrics (millis)
 otel.exporter.otlp.enabled: false # disable send to OTLP endpoint
