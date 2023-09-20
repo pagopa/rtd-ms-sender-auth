@@ -9,9 +9,9 @@
         <relativePath/>
     </parent>
     <groupId>it.gov.pagopa.rtd.ms</groupId>
-    <artifactId>rtd-ms-sender-auth</artifactId>
+    <artifactId>rtdsenderauth</artifactId>
     <version>1.1.1</version>
-    <name>rtd-ms-sender-auth</name>
+    <name>rtdsenderauth</name>
     <description>micro-service responsible to store the association between sender code and api key</description>
     <properties>
         <java.version>17</java.version>
@@ -115,6 +115,9 @@
     <profiles>
         <profile>
             <id>native</id>
+            <properties>
+                <applicationinsights.enabled>true</applicationinsights.enabled>
+            </properties>
             <build>
                 <plugins>
                     <plugin>

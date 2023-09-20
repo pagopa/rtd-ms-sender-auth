@@ -3,6 +3,7 @@ logging:
     root: INFO
 
 spring:
+  application.name: @project.artifactId@
   config:
     activate:
       on-profile: default
@@ -19,8 +20,7 @@ management:
       probes:
         enabled: true
 
-applicationinsights.enabled: true
-otel.springboot.resource.attributes.service.name: ${APPLICATIONINSIGHTS_ROLE_NAME:rtdsenderauth}
+applicationinsights.enabled: ${@applicationinsights.enabled@:true}
 otel.instrumentation.logback-appender.enabled: true # enable logback instrumentation
 otel.traces.sampler.probability: 1.0 # sample probability for tracing (spans)
 otel.metric.export.interval: 60000 # sampling rate for metrics (millis)
