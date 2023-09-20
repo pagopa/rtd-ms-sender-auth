@@ -14,7 +14,14 @@ spring:
       database: ${MONGODB_NAME:rtd}
 
 management:
-  endpoints.web.exposure.include: health,metrics
+  metrics:
+    enable:
+      all: false
+      process.cpu: true
+      system.cpu: true
+      jvm.memory: true
+      application: true
+  endpoints.web.exposure.include: health
   endpoint:
     health:
       probes:
