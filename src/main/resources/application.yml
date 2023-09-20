@@ -3,7 +3,7 @@ logging:
     root: INFO
 
 spring:
-  application.name: @project.artifactId@
+  application.name: rtdsenderauth
   config:
     activate:
       on-profile: default
