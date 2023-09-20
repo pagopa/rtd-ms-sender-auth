@@ -17,6 +17,7 @@
         <java.version>17</java.version>
         <snakeyaml.version>2.0</snakeyaml.version>
         <sonar.exclusions>**/telemetry/AppInsightConfig.java</sonar.exclusions>
+        <applicationinsights.enabled>false</applicationinsights.enabled>
     </properties>
     <dependencies>
         <dependency>

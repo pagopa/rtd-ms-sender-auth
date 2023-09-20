@@ -16,7 +16,7 @@ import org.springframework.context.annotation.Configuration;
  * Connection string will automatically take from environment variable APPLICATIONINSIGHTS_CONNECTION_STRING
  */
 @Configuration
-@ConditionalOnProperty(value = "applicationinsights.enabled", matchIfMissing = false)
+@ConditionalOnProperty(value = "applicationinsights.enabled", havingValue = "true", matchIfMissing = false)
 public class AppInsightConfig {
 
   private final AzureMonitorExporterBuilder azureMonitorExporterBuilder;
