@@ -110,17 +110,6 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
-            <!-- fix netty CVE -->
-            <dependency>
-                <groupId>io.projectreactor.netty</groupId>
-                <artifactId>reactor-netty-http</artifactId>
-                <version>1.1.11</version>
-            </dependency>
-            <dependency>
-                <groupId>io.projectreactor.netty</groupId>
-                <artifactId>reactor-netty-core</artifactId>
-                <version>1.1.11</version>
-            </dependency>
         </dependencies>
     </dependencyManagement>
 
