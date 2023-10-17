@@ -1,14 +1,14 @@
-FROM ghcr.io/graalvm/native-image:ol8-java17-22@sha256:3210af2c1bdf6a73cd82092909e5ed4674ef09caa1b32f2b05db7f232aba72f2 AS builder
+FROM ghcr.io/graalvm/native-image:ol8-java17-22.3.3@sha256:d55ebb6eec6751b87ce9d34ab1004fa088d227d90d3edb4d9b3a994e54ac285a AS builder
 
 WORKDIR /build
 COPY . .
 
 RUN ./mvnw clean package -Pnative -DskipTests
 
-FROM ubuntu:jammy-20230624@sha256:0bced47fffa3361afa981854fcabcd4577cd43cebbb808cea2b1f33a3dd7f508 AS cve
+FROM ubuntu:mantic-20231011@sha256:4c32aacd0f7d1d3a29e82bee76f892ba9bb6a63f17f9327ca0d97c3d39b9b0ee AS cve
 COPY --from=builder /build/target/rtd-ms-sender-auth*.jar .
 
-FROM ubuntu:jammy-20230624@sha256:0bced47fffa3361afa981854fcabcd4577cd43cebbb808cea2b1f33a3dd7f508 AS runtime
+FROM ubuntu:mantic-20231011@sha256:4c32aacd0f7d1d3a29e82bee76f892ba9bb6a63f17f9327ca0d97c3d39b9b0ee AS runtime
 
 EXPOSE 8080
 
