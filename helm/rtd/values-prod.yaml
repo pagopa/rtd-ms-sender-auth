@@ -1,7 +1,7 @@
 microservice-chart:
   image:
     repository: cstarpcommonacr.azurecr.io/rtdmssenderauth
-    tag: 1.1.1
+    tag: 1.1.2
     pullPolicy: Always
 
   ingress:
