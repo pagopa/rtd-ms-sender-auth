@@ -28,6 +28,7 @@ management:
         enabled: true
 
 applicationinsights.enabled: '@applicationinsights.enabled@'
+otel.log.level: ${OPENTELEMETRY_LOG_LEVEL:INFO}
 otel.instrumentation.logback-appender.enabled: true # enable logback instrumentation
 otel.traces.sampler.probability: 1.0 # sample probability for tracing (spans)
 otel.metric.export.interval: 60000 # sampling rate for metrics (millis)
