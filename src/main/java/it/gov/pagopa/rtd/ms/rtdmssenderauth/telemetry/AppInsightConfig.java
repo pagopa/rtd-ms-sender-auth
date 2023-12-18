@@ -6,6 +6,7 @@ import io.opentelemetry.instrumentation.mongo.v3_1.MongoTelemetry;
 import io.opentelemetry.sdk.logs.export.LogRecordExporter;
 import io.opentelemetry.sdk.metrics.export.MetricExporter;
 import io.opentelemetry.sdk.trace.export.SpanExporter;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.autoconfigure.mongo.MongoClientSettingsBuilderCustomizer;
 import org.springframework.context.annotation.Bean;
@@ -21,8 +22,11 @@ public class AppInsightConfig {
 
   private final AzureMonitorExporterBuilder azureMonitorExporterBuilder;
 
-  public AppInsightConfig() {
-    this.azureMonitorExporterBuilder = new AzureMonitorExporterBuilder();
+  public AppInsightConfig(
+      @Value("${APPLICATIONINSIGHTS_CONNECTION_STRING}") String connectionString
+  ) {
+    this.azureMonitorExporterBuilder = new AzureMonitorExporterBuilder()
+        .connectionString(connectionString);
   }
 
   @Bean
