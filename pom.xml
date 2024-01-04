@@ -15,7 +15,7 @@
     <description>micro-service responsible to store the association between sender code and api key</description>
     <properties>
         <java.version>17</java.version>
-        <snakeyaml.version>2.0</snakeyaml.version>
+        <snakeyaml.version>2.2</snakeyaml.version>
         <sonar.exclusions>**/telemetry/AppInsightConfig.java</sonar.exclusions>
         <applicationinsights.enabled>false</applicationinsights.enabled>
     </properties>
@@ -70,19 +70,19 @@
         <dependency>
             <groupId>org.testcontainers</groupId>
             <artifactId>testcontainers</artifactId>
-            <version>1.17.6</version>
+            <version>1.19.3</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.testcontainers</groupId>
             <artifactId>junit-jupiter</artifactId>
-            <version>1.17.6</version>
+            <version>1.19.3</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.testcontainers</groupId>
             <artifactId>mongodb</artifactId>
-            <version>1.17.6</version>
+            <version>1.19.3</version>
             <scope>test</scope>
         </dependency>
 
