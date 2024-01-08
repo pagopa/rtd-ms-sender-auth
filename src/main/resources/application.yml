@@ -1,6 +1,7 @@
 logging:
   level:
     root: INFO
+    reactor.netty.http.client.HttpClientConnect: ERROR # prevent logging WARN timeout azure exporter
 
 spring:
   application.name: rtdsenderauth
