@@ -39,18 +39,6 @@ public class MongoConfig {
   private static final class HeartBeatLogger implements ServerMonitorListener {
 
     @Override
-    public void serverHearbeatStarted(ServerHeartbeatStartedEvent event) {
-      ServerMonitorListener.super.serverHearbeatStarted(event);
-      log.info(event.toString());
-    }
-
-    @Override
-    public void serverHeartbeatSucceeded(ServerHeartbeatSucceededEvent event) {
-      ServerMonitorListener.super.serverHeartbeatSucceeded(event);
-      log.info(event.toString());
-    }
-
-    @Override
     public void serverHeartbeatFailed(ServerHeartbeatFailedEvent event) {
       ServerMonitorListener.super.serverHeartbeatFailed(event);
       log.info(event.toString());
