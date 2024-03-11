@@ -18,27 +18,27 @@ microservice-chart:
   deployment:
     replicas: 2
 
-    affinity:
-      nodeAffinity:
-        requiredDuringSchedulingIgnoredDuringExecution:
-          nodeSelectorTerms:
-            - matchExpressions:
-                - key: node_type
+  affinity:
+    nodeAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+        nodeSelectorTerms:
+          - matchExpressions:
+              - key: node_type
+                operator: In
+                values:
+                  - user
+    podAntiAffinity:
+      preferredDuringSchedulingIgnoredDuringExecution:
+        - weight: 100
+          podAffinityTerm:
+            labelSelector:
+              matchExpressions:
+                - key: app.kubernetes.io/instance
                   operator: In
                   values:
-                    - user
-      podAntiAffinity:
-        preferredDuringSchedulingIgnoredDuringExecution:
-          - weight: 100
-            podAffinityTerm:
-              labelSelector:
-                matchExpressions:
-                  - key: app.kubernetes.io/instance
-                    operator: In
-                    values:
-                      - rtd-ms-sender-auth
-              namespaces: [ "rtd" ]
-              topologyKey: topology.kubernetes.io/zone
+                    - rtd-ms-sender-auth
+            namespaces: [ "rtd" ]
+            topologyKey: topology.kubernetes.io/zone
 
   envSecret:
     aks-api-url: cstar-p-weu-prod01-aks-apiserver-url
