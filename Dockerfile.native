@@ -5,7 +5,7 @@ COPY . .
 
 RUN ./mvnw clean package -Pnative -DskipTests
 
-FROM ubuntu:mantic-20231011@sha256:4c32aacd0f7d1d3a29e82bee76f892ba9bb6a63f17f9327ca0d97c3d39b9b0ee AS cve
+FROM ubuntu:mantic-20240216@sha256:5cd569b792a8b7b483d90942381cd7e0b03f0a15520d6e23fb7a1464a25a71b1 AS cve
 COPY --from=builder /build/target/rtd-ms-sender-auth*.jar .
 
 FROM ubuntu:noble-20240225@sha256:723ad8033f109978f8c7e6421ee684efb624eb5b9251b70c6788fdb2405d050b AS runtime
