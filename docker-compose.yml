@@ -1,7 +1,7 @@
 version: "3.9"
 services:
   mongodb:
-    image: mongo:latest
+    image: mongo:latest@sha256:3ed24298a65470d4a3553621ecb96d53ea3fef14f2800411a01566536c3f966d
     ports:
       - "27017:27017"
   senderauth:
