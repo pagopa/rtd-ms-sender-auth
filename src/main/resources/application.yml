@@ -26,7 +26,6 @@ management:
   endpoints:
     enabled-by-default: false
     web.exposure.include: health
-  endpoints.enabled-by-default: false
   endpoint:
     health:
       enabled: true
