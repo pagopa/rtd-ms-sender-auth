@@ -21,10 +21,7 @@ management:
       system.cpu: true
       jvm.memory: true
       application: true
-  endpoints:
-    web:
-      exposure:
-        include: health
+  endpoints.web.exposure.include: health
   endpoint:
     health:
       probes:
