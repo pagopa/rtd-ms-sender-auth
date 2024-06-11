@@ -39,18 +39,18 @@ jobs:
         CVE_MEDIUM: ${{env.CVE_MEDIUM}}
     steps:
       - name: Checkout the code
-        uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 #v4.1.1
+        uses: actions/checkout@a5ac7e51b41094c92402da3b24376905380afc29 # v4.1.6
       - name: Build the Docker image
         run: docker build . --file ${{ env.DOCKERFILE }} --target cve --tag localbuild/testimage:latest
       - name: Run the Trivy scan action itself with GitHub Advanced Security code scanning integration enabled
         id: scan
-        uses: aquasecurity/trivy-action@062f2592684a31eb3aa050cc61e7ca1451cecd3d #v0.18.0
+        uses: aquasecurity/trivy-action@595be6a0f6560a0a8fc419ddf630567fc623531d # v0.22.0
         with:
           image-ref: "localbuild/testimage:latest"
           format: 'sarif'
           output: 'results.sarif'
       - name: Upload Anchore Scan Report
-        uses: github/codeql-action/upload-sarif@6c089f53dd51dc3fc7e599c3cb5356453a52ca9e #v2.20.0
+        uses: github/codeql-action/upload-sarif@9550da953dd3b29aedf76cd635101e48eae5eebd # CodeQL Bundle v2.17.4
         with:
           sarif_file: 'results.sarif'
       - name: CVE Description escaped extraction and print
