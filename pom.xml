@@ -130,13 +130,6 @@
                             <buildArgs>
                                 <arg>--initialize-at-build-time=org.slf4j.LoggerFactory,ch.qos.logback</arg>
                                 <arg>--initialize-at-build-time=com.azure.core.util.logging.ClientLogger</arg>
-                                <arg>--initialize-at-build-time=com.fasterxml.jackson.core.Base64Variant</arg>
-                                <arg>--initialize-at-build-time=org.slf4j.helpers.SubstituteServiceProvider</arg>
-                                <arg>--initialize-at-build-time=org.slf4j.helpers.NOP_FallbackServiceProvider</arg>
-                                <arg>--initialize-at-build-time=io.opentelemetry.instrumentation.api.internal.cache.MapBackedCache</arg>
-                                <arg>--initialize-at-build-time=io.opentelemetry.api.internal.InternalAttributeKeyImpl</arg>
-                                <arg>--initialize-at-build-time=io.opentelemetry.instrumentation.api.internal.cache.MapBackedCache</arg>
-                                <arg>--initialize-at-build-time=io.opentelemetry.api.internal.InternalAttributeKeyImpl</arg>
                             </buildArgs>
                         </configuration>
                         <executions>
