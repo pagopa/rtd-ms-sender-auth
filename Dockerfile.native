@@ -1,4 +1,4 @@
-FROM  ghcr.io/graalvm/native-image-community:22.0.1-muslib-ol8-20240416@sha256:4533f0684655839f62f5814567d2104e5e4aed5c26182c97afa0a7fae2717d6a
+FROM  ghcr.io/graalvm/graalpy-community:24.0.1-ol9-slim-20240416@sha256:50d94db72973c68f54799491d0f801f9624c3c25efe379695c6210b7b7973490 as builder
 
 WORKDIR /build
 COPY . .
