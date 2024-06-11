@@ -5,7 +5,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.3.0</version>
+        <version>3.2.5</version>
         <relativePath/>
     </parent>
     <groupId>it.gov.pagopa.rtd.ms</groupId>
@@ -127,6 +127,10 @@
                             <metadataRepository>
                                 <enabled>true</enabled>
                             </metadataRepository>
+                            <buildArgs>
+                                <arg>--initialize-at-build-time=org.slf4j.LoggerFactory,ch.qos.logback</arg>
+                                <arg>--initialize-at-build-time=com.azure.core.util.logging.ClientLogger</arg>
+                            </buildArgs>
                         </configuration>
                         <executions>
                             <execution>
