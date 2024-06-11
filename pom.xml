@@ -127,12 +127,6 @@
                             <metadataRepository>
                                 <enabled>true</enabled>
                             </metadataRepository>
-                            <buildArgs>
-                                <arg>--initialize-at-build-time=org.slf4j.LoggerFactory,ch.qos.logback</arg>
-                                <arg>--initialize-at-build-time=com.azure.core.util.logging.ClientLogger</arg>
-                                <arg>--initialize-at-build-time=org.slf4j.helpers.NOP_FallbackServiceProvider</arg>
-                                <arg>--initialize-at-build-time=org.slf4j.helpers.SubstituteServiceProvider</arg>
-                            </buildArgs>
                         </configuration>
                         <executions>
                             <execution>
