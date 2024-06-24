@@ -45,7 +45,7 @@ public class SenderRestControllerImpl implements SenderRestController {
     try {
       authService.deleteAssociation(senderCode, internalId);
     } catch (RecordNotFoundException e) {
-      log.error("Failed to delete a non existing association by sendercode {}", senderCode);
+      log.warn("Failed to delete a non existing association by sendercode {}", senderCode);
     }
   }
 }
