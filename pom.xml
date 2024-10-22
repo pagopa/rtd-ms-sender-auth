@@ -5,7 +5,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.3.1</version>
+        <version>3.3.4</version>
         <relativePath/>
     </parent>
     <groupId>it.gov.pagopa.rtd.ms</groupId>
@@ -130,6 +130,7 @@
                             <buildArgs>
                                 <arg>--initialize-at-build-time=org.slf4j.LoggerFactory,ch.qos.logback</arg>
                                 <arg>--initialize-at-build-time=com.azure.core.util.logging.ClientLogger</arg>
+                                <arg>--initialize-at-build-time=org.slf4j.helpers</arg>
                             </buildArgs>
                         </configuration>
                         <executions>
