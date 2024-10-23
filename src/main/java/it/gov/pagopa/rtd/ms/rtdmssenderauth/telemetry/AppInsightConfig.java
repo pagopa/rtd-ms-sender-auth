@@ -35,12 +35,4 @@ public class AppInsightConfig {
       }
     };
   }
-
-  @Bean
-  MongoClientSettingsBuilderCustomizer mongoOpenTelemetryBridge(
-      OpenTelemetry openTelemetry
-  ) {
-    return clientSettingsBuilder -> clientSettingsBuilder
-        .addCommandListener(MongoTelemetry.builder(openTelemetry).build().newCommandListener());
-  }
 }
