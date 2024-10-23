@@ -15,9 +15,6 @@ spring:
 
 management:
   metrics:
-    mongo:
-      commands.enabled: true
-      connectionpool.enabled: true
     export.defaults.enabled: false
     enable:
       all: false
@@ -31,7 +28,6 @@ management:
     web.exposure.include: health
   endpoint:
     health:
-      show-details: always
       enabled: true
       probes:
         enabled: true
