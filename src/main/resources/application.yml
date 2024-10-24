@@ -46,7 +46,6 @@ otel:
     export:
       interval: 60000 # sampling rate for metrics (millis)
   instrumentation:
-    logback-appender:
-      enabled: true # enable logback instrumentation
-    micrometer:
-      enabled: false
+    logback-appender.enabled: true # enable logback instrumentation
+    mongo.enabled: true
+    micrometer.enabled: false
