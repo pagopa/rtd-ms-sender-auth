@@ -5,12 +5,12 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.3.4</version>
+        <version>3.4.1</version>
         <relativePath/>
     </parent>
     <groupId>it.gov.pagopa.rtd.ms</groupId>
     <artifactId>rtd-ms-sender-auth</artifactId>
-    <version>1.1.6</version>
+    <version>1.1.7</version>
     <name>rtd-ms-sender-auth</name>
     <description>micro-service responsible to store the association between sender code and api key</description>
     <properties>
