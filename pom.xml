@@ -58,11 +58,11 @@
             <scope>runtime</scope>
         </dependency>
 
-        <!-- Azure Monitor OpenTelemetry Exporter -->
+        <!-- Azure Monitor OpenTelemetry -->
         <dependency>
             <groupId>com.azure</groupId>
-            <artifactId>azure-monitor-opentelemetry-exporter</artifactId>
-            <version>1.0.0-beta.30</version>
+            <artifactId>azure-monitor-opentelemetry-autoconfigure</artifactId>
+            <version>1.0.0</version>
         </dependency>
 
         <!-- testcontainers -->
