@@ -54,7 +54,7 @@ microservice-chart:
 
   envSecret:
     MONGODB_CONNECTION_URI: mongo-db-connection-uri
-    APPLICATIONINSIGHTS_CONNECTION_STRING: appinsights-instrumentation-key
+    APPLICATIONINSIGHTS_CONNECTION_STRING: appinsights-connection-string
 
   envConfigMapExternals:
     rtdsenderauth:
