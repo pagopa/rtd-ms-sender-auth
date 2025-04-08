@@ -1,11 +1,11 @@
-FROM maven:3.9.6-amazoncorretto-17-al2023@sha256:21dc2759ee325a59ee1c4721f3964884c9082d8f3f47e9537b68d6ec9f077e35 AS buildtime
+FROM public.ecr.aws/docker/library/maven:3.9.3-amazoncorretto-17@sha256:4ab7db7bd5f95e58b0ba1346ff29d6abdd9b73e5fd89c5140edead8b037386ff AS buildtime
 
 WORKDIR /build
 COPY . .
 
 RUN mvn clean package -DskipTests
 
-FROM amazoncorretto:17.0.10-al2023-headless@sha256:7a028a2e62640aec9e3c1e284539f5ff47f5b32140f9ad5ae29a2f92b937468a AS runtime
+FROM public.ecr.aws/docker/library/eclipse-temurin:17-jre@sha256:97077b491447b095b0fe8d6d6863526dec637b3e6f8f34e50787690b529253f3 AS runtime
 
 VOLUME /tmp
 WORKDIR /app
