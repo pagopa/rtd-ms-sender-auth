@@ -27,18 +27,10 @@ microservice-chart:
                 operator: In
                 values:
                   - user
-    podAntiAffinity:
-      preferredDuringSchedulingIgnoredDuringExecution:
-        - weight: 100
-          podAffinityTerm:
-            labelSelector:
-              matchExpressions:
-                - key: app.kubernetes.io/instance
-                  operator: In
-                  values:
-                    - rtd-ms-sender-auth
-            namespaces: [ "rtd" ]
-            topologyKey: topology.kubernetes.io/zone
+
+  topologySpreadConstraints:
+    create: true
+    useDefaultConfiguration: true
 
   envSecret:
     aks-api-url: cstar-p-weu-prod01-aks-apiserver-url

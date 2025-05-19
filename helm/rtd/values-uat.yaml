@@ -21,6 +21,10 @@ microservice-chart:
   envSecret:
     aks-api-url: cstar-u-weu-uat01-aks-apiserver-url
 
+  topologySpreadConstraints:
+    create: true
+    useDefaultConfiguration: true
+    
   #  autoscaling:
   #    enable: false
   #    minReplica: 1
