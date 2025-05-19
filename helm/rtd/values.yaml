@@ -38,9 +38,10 @@ microservice-chart:
     servicePort: 8080
 
   serviceAccount:
-    create: false
-    annotations: {}
-    name: ""
+    name: "rtd-workload-identity" # Replace with your service account name if using workload identity
+    # If using Azure Workload Identity, also add the azure section:
+    azure:
+      workloadIdentityClientId: "CHANGEME" # Insert your clientId here if needed
 
   podSecurityContext:
     seccompProfile:
