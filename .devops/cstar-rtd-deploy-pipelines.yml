@@ -7,7 +7,7 @@ parameters:
     type: boolean
     default: true
   - name: 'buildNative'
-    displayName: 'Deploy and build native version'
+    displayName: 'Build with native version'
     type: boolean
     default: true
 
