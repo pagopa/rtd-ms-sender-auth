@@ -47,7 +47,11 @@ microservice-chart:
       type: RuntimeDefault
 
   securityContext:
+    readOnlyRootFilesystem: true
     allowPrivilegeEscalation: false
+    capabilities:
+      drop:
+        - all
     runAsNonRoot: true
     runAsUser: 10000
     runAsGroup: 10000
@@ -56,6 +60,14 @@ microservice-chart:
     MONGODB_CONNECTION_URI: mongo-db-connection-uri
     APPLICATIONINSIGHTS_CONNECTION_STRING: appinsights-connection-string
 
-  envConfigMapExternals:
+  tmpVolumeMount:
+    create: true
+    mounts:
+      - name: tmp
+        mountPath: /tmp
+      - name: logs
+        mountPath: /app/logs
+
+  externalConfigMapValues:
     rtdsenderauth:
       OPENTELEMETRY_LOG_LEVEL: APPLICATIONINSIGHTS_INSTRUMENTATION_LOGGING_LEVEL
