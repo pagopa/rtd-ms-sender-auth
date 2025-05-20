@@ -1,10 +1,10 @@
 #!/bin/bash
 
 # Usage:
-#   ./deploy.sh <values yaml file> <app name or release name>
+#   ./deploy.sh <env> <app name or release name>
 #
 # Example:
-#   ./deploy.sh values.yaml my-app-release
+#   ./deploy.sh dev my-app-release
 #
 # This script will:
 #   - Read the namespace and keyvault name from the provided values file
